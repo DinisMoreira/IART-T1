@@ -57,16 +57,71 @@ public class Board {
         }
     }
 
-    public Boolean canMovePieceUp(Piece piece, int distance) {
-        if(piece.isPieceHorizontal())
+    public Boolean canPieceMoveUp(Piece piece, int distance) {
+        if(piece.isPieceHorizontal() || distance <= 0)
             return false;
-        else {
+
+        try {
             int xPosition = piece.getPosition().getX();
             int yPosition = piece.getPosition().getY();
-            for(int yIterator = 0; yIterator < distance; ++yIterator)
+            for(int yIterator = 1; yIterator <= distance; ++yIterator)
                 if(board[xPosition][yPosition - yIterator] != '0')
                     return false;
             return true;
+        }
+        catch(ArrayIndexOutOfBoundsException exception) {
+            return false;
+        }
+    }
+
+    public Boolean canPieceMoveDown(Piece piece, int distance) {
+        if(piece.isPieceHorizontal() || distance <= 0)
+            return false;
+
+        try {
+            int xPosition = piece.getPosition().getX();
+            int yPosition = piece.getPosition().getY() + piece.getSize() - 1;
+            for(int yIterator = 1; yIterator <= distance; ++yIterator)
+                if(board[xPosition][yPosition + yIterator] != '0')
+                    return false;
+            return true;
+        }
+        catch(ArrayIndexOutOfBoundsException exception) {
+            return false;
+        }
+    }
+
+    public Boolean canPieceMoveLeft(Piece piece, int distance) {
+        if(! piece.isPieceHorizontal() || distance <= 0)
+            return false;
+
+        try {
+            int xPosition = piece.getPosition().getX();
+            int yPosition = piece.getPosition().getY();
+            for(int xIterator = 1; xIterator <= distance; ++xIterator)
+                if(board[xPosition - xIterator][yPosition] != '0')
+                    return false;
+            return true;
+        }
+        catch(ArrayIndexOutOfBoundsException exception) {
+            return false;
+        }
+    }
+
+    public Boolean canPieceMoveRight(Piece piece, int distance) {
+        if(! piece.isPieceHorizontal() || distance <= 0)
+            return false;
+
+        try {
+            int xPosition = piece.getPosition().getX() + piece.getSize() - 1;
+            int yPosition = piece.getPosition().getY();
+            for(int xIterator = 1; xIterator <= distance; ++xIterator)
+                if(board[xPosition + xIterator][yPosition] != '0')
+                    return false;
+            return true;
+        }
+        catch(ArrayIndexOutOfBoundsException exception) {
+            return false;
         }
     }
 }
