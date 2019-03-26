@@ -44,6 +44,8 @@ public class Move {
                 return false;
         }
 
+        this.newBoard.updateBoard();
+
         return true;
     }
 
@@ -75,24 +77,20 @@ public class Move {
         if (!this.oldBoard.canPieceMoveRight(p, d))
             return false;
 
-        deleteLastPosition(p, piece.getPosition().getX(), piece.getPosition().getY());
         p.getPosition().setX(p.getPosition().getX() + d);
         return true;
     }
 
-    public void deleteLastPosition(Piece p, int x, int y) {
-
-        for (int sizeIterator = 0; sizeIterator < piece.getSize(); ++sizeIterator) {
-            newBoard.getBoard()[y][x] = '.';
-            if (p.isPieceHorizontal())
-                x++;
-            else
-                y++;
-        }
-    }
-
     public Board getNewBoard() {
         return this.newBoard;
+    }
+
+    public Piece getPiece() {
+        return this.piece;
+    }
+
+    public int getDistance() {
+        return this.distance;
     }
 
 }
