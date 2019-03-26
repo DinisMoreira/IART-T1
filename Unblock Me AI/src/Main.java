@@ -1,5 +1,6 @@
 import elements.*;
 import algorithm.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,5 +23,26 @@ public class Main {
         testBoard.updateBoard();
 
         testBoard.printBoard();
+
+
+
+
+
+        
+
+        ArrayList<ArrayList<Move>> allMoves;
+
+        allMoves = testBoard.getAllMoves();
+
+        for(int i=0; i<allMoves.size();i++){
+            for(int j=0; j<allMoves.get(i).size();j++){
+                allMoves.get(i).get(j).getOldBoard().printBoard();
+                System.out.println();
+            }
+        }
+
+        return;
     }
+
+
 }
