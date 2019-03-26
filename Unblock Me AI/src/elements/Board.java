@@ -130,4 +130,60 @@ public class Board {
         return this.board;
     }
 
+    public ArrayList<ArrayList<Move>> getAllMoves() {
+
+        ArrayList<ArrayList<Move>> allMoves;
+        allMoves = new ArrayList<ArrayList<Move>>();
+
+        for (int i = 0; i < this.boardPieces.size(); i++) {
+            allMoves.add(getAllPieceMoves(this, this.boardPieces.get(i)));
+        }
+
+        return allMoves;
+
+    }
+
+    public ArrayList<Move> getAllPieceMoves(Board board, Piece piece) {
+
+        ArrayList<Move> allMoves;
+        allMoves = new ArrayList<Move>();
+        int distance = 1;
+
+        if (piece.isPieceHorizontal()) {
+
+            // Gets all "left" an horizontal piece can make
+            while (canPieceMoveLeft(piece, distance)) {
+                allMoves.add(new Move(board, piece, distance, 'l'));
+                distance++;
+            }
+
+            distance = 1;
+
+            // Gets all "right" moves an horizontal piece can make
+            while (canPieceMoveRight(piece, distance)) {
+                allMoves.add(new Move(board, piece, distance, 'r'));
+                distance++;
+            }
+
+        } else {
+
+            // Gets all "up" moves a vertical piece can make
+            while (canPieceMoveUp(piece, distance)) {
+                allMoves.add(new Move(board, piece, distance, 'u'));
+                distance++;
+            }
+
+            distance = 1;
+
+            // Gets all "down" moves a vertical piece can make
+            while (canPieceMoveDown(piece, distance)) {
+                allMoves.add(new Move(board, piece, distance, 'd'));
+                distance++;
+            }
+
+        }
+
+        return allMoves;
+    }
+
 }
