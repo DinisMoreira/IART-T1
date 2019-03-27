@@ -2,6 +2,7 @@ package algorithm;
 
 import elements.*;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 public class DFS extends Algorithm {
     public DFS(Board board) {
@@ -25,7 +26,7 @@ public class DFS extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         if(solution == null){
-            System.out.println("Could not fin a solution with DFS algorithm, Max depth = " + maxDepth);
+            System.out.println("Could not find a solution with DFS algorithm, Max depth = " + maxDepth);
         }
         else{
             //SHOW SOLUTION
@@ -55,7 +56,7 @@ public class DFS extends Algorithm {
             return null;
         }
         else{
-            solution = exploreGraph(root, maxDepth);
+            solution = exploreGraph(maxDepth);
 
         }
 
@@ -64,12 +65,34 @@ public class DFS extends Algorithm {
 
     
     //UNTESTED & TO DO
-    public Vertex exploreGraph(Vertex root, int maxDepth){
-        return null;
+    public Vertex exploreGraph(int maxDepth){
+        Vertex vertex;
+        if(this.stack.size() <= 0){
+            return null;
+        }
+        
+        vertex = this.stack.pop();
+
+        /*System.out.println("\nPopped Board");
+        vertex.getBoard().printBoard();
+        System.out.println(vertex.getDepth());
+        System.out.println(stack.size());*/
+
+        vertex.setVisited(true);
+
+        if(/*board == SOLUÇÂO*/ false){
+            return vertex;
+        }
+
+        if(maxDepth > vertex.getDepth()){
+            generateVertexChildren(vertex);
+        }
+
+        return exploreGraph(maxDepth);
     }
 
     //UNTESTED & TO DO
-    public void generateVertexChildren(Vertex vertex, int maxDepth){
+    public void generateVertexChildren(Vertex vertex){
         ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
 
 
