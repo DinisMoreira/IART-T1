@@ -31,6 +31,10 @@ public class Vertex {
         return visited;
     }
 
+    public void setVisited(Boolean isVisited){
+        this.visited = isVisited;
+    }
+
     public ArrayList<Board> getPastBoards(){
         return pastBoards;
     }
