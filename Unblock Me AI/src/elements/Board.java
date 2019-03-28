@@ -176,11 +176,9 @@ public class Board {
             while (canPieceMoveLeft(piece, distance)) {
                 Move m = new Move(board, piece, distance, 'l');
                 allPieceMoves.add(m);
-                updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
                 new Move(board, piece, distance, 'r');
-                updateBoard();
 
                 distance++;
             }
@@ -191,11 +189,9 @@ public class Board {
             while (canPieceMoveRight(piece, distance)) {
                 Move m = new Move(board, piece, distance, 'r');
                 allPieceMoves.add(m);
-                updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
                 Move n = new Move(board, piece, distance, 'l');
-                updateBoard();
 
                 distance++;
 
@@ -207,11 +203,9 @@ public class Board {
             while (canPieceMoveUp(piece, distance)) {
                 Move m = new Move(board, piece, distance, 'u');
                 allPieceMoves.add(m);
-                updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
                 Move n = new Move(board, piece, distance, 'd');
-                updateBoard();
 
                 distance++;
             }
@@ -222,11 +216,9 @@ public class Board {
             while (canPieceMoveDown(piece, distance)) {
                 Move m = new Move(board, piece, distance, 'd');
                 allPieceMoves.add(m);
-                updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
                 Move n = new Move(board, piece, distance, 'u');
-                updateBoard();
 
                 distance++;
             }
