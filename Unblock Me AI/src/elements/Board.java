@@ -10,24 +10,23 @@ public class Board {
     // Explicit view of board. Useful to simplify collisions
     private char[][] board;
     // Both represent the board's dimensions
-    private int heigth;
+    private int height;
     private int width;
-    // Represents the piece which needs to be moved to the target position
-    private Piece mainPiece;
     // Stores the x coordinate of the target position
     private int targetX;
     // Stores the y coordinate of the target position
     private int targetY;
 
-    public Board(int targetX, int targetY, int heigth, int width, Piece mainPiece) {
-        this.mainPiece = mainPiece;
-        this.heigth = heigth;
+    public Board(int targetX, int targetY, int height, int width, Piece mainPiece) {
+        this.height = height;
         this.width = width;
-        board = new char[this.heigth][this.width];
+        board = new char[this.height][this.width];
         for (char[] heightIterator : board) {
             Arrays.fill(heightIterator, '.');
         }
-        boardPieces = new ArrayList<Piece>();
+        boardPieces = new ArrayList<>();
+        boardPieces.add(mainPiece);
+        this.updateBoard();
         this.targetX = targetX;
         this.targetY = targetY;
     }
@@ -35,15 +34,13 @@ public class Board {
     public Board(Board b) {
         targetX = b.targetX;
         targetY = b.targetY;
-        heigth = b.heigth;
+        height = b.height;
         width = b.width;
-        mainPiece = b.mainPiece;
-        board = new char[this.heigth][this.width];
+        board = new char[this.height][this.width];
         for (char[] heightIterator : board) {
             Arrays.fill(heightIterator, '.');
         }
         boardPieces = b.boardPieces;
-
     }
 
     public void printBoard() {
@@ -60,33 +57,25 @@ public class Board {
     }
 
     public void updateBoard() {
-        /*
-         * int xPosition; int yPosition; boolean isHorizontal; int pieceSize; for (Piece
-         * piece : boardPieces) { xPosition = piece.getX(); yPosition = piece.getY();
-         * isHorizontal = piece.isPieceHorizontal(); pieceSize = piece.getSize(); for
-         * (int sizeIterator = 0; sizeIterator < piece.getSize(); ++sizeIterator) {
-         * this.board[yPosition][xPosition] = piece.getIdentificationLetter(); if
-         * (isHorizontal) xPosition++; else yPosition++; } }
-         */
 
         for (char[] heightIterator : board) {
             Arrays.fill(heightIterator, '.');
         }
 
-        for (int i = 0; i < this.boardPieces.size(); i++) {
-            if (this.boardPieces.get(i).isPieceHorizontal()) {
-                for (int j = 0; j < this.boardPieces.get(i).getSize(); j++) {
-                    int x = this.boardPieces.get(i).getX();
-                    int y = this.boardPieces.get(i).getY();
+        for (Piece piece : this.boardPieces) {
+            if (piece.isPieceHorizontal()) {
+                for (int j = 0; j < piece.getSize(); j++) {
+                    int x = piece.getX();
+                    int y = piece.getY();
 
-                    this.board[y][x + j] = this.boardPieces.get(i).getIdentificationLetter();
+                    this.board[y][x + j] = piece.getIdentificationLetter();
                 }
             } else {
-                for (int j = 0; j < this.boardPieces.get(i).getSize(); j++) {
-                    int x = this.boardPieces.get(i).getX();
-                    int y = this.boardPieces.get(i).getY();
+                for (int j = 0; j < piece.getSize(); j++) {
+                    int x = piece.getX();
+                    int y = piece.getY();
 
-                    this.board[y + j][x] = this.boardPieces.get(i).getIdentificationLetter();
+                    this.board[y + j][x] = piece.getIdentificationLetter();
                 }
             }
         }
@@ -100,7 +89,7 @@ public class Board {
             int xPosition = piece.getX();
             int yPosition = piece.getY();
             for (int yIterator = 1; yIterator <= distance; ++yIterator)
-                if (board[xPosition][yPosition - yIterator] != '.')
+                if (board[yPosition-yIterator][xPosition] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -116,7 +105,7 @@ public class Board {
             int xPosition = piece.getX();
             int yPosition = piece.getY() + piece.getSize() - 1;
             for (int yIterator = 1; yIterator <= distance; ++yIterator)
-                if (board[xPosition][yPosition + yIterator] != '.')
+                if (board[yPosition+yIterator][xPosition] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -132,7 +121,7 @@ public class Board {
             int xPosition = piece.getX();
             int yPosition = piece.getY();
             for (int xIterator = 1; xIterator <= distance; ++xIterator)
-                if (board[xPosition - xIterator][yPosition] != '.')
+                if (board[yPosition][xPosition - xIterator] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -148,7 +137,7 @@ public class Board {
             int xPosition = piece.getX() + piece.getSize() - 1;
             int yPosition = piece.getY();
             for (int xIterator = 1; xIterator <= distance; ++xIterator)
-                if (board[xPosition + xIterator][yPosition] != '.')
+                if (board[yPosition][xPosition + xIterator] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -172,7 +161,6 @@ public class Board {
         return allMoves;
 
     }
-
     public ArrayList<Move> getAllPieceMoves(Board board, Piece piece) {
 
         ArrayList<Move> allPieceMoves;
@@ -241,14 +229,11 @@ public class Board {
 
                 distance++;
             }
-
         }
 
         piece.setX(storedX);
         piece.setY(storedY);
         board.updateBoard();
-
-        System.out.println(allPieceMoves.size());
 
         return allPieceMoves;
     }
@@ -262,10 +247,35 @@ public class Board {
     }
 
     public boolean checkVictory() {
-        if (this.mainPiece.getX() == this.targetX - 1 && this.mainPiece.getY() == this.targetY) {
-            return true;
+
+        final Piece keyPiece = boardPieces.get(0);
+        int xPosition = keyPiece.getX();
+        int yPosition = keyPiece.getY();
+
+        try {
+            for (int sizeIterator = 1; sizeIterator  <= keyPiece.getSize(); ++sizeIterator ) {
+                if (xPosition == targetX && yPosition == targetY)
+                    return true;
+                if(keyPiece.isPieceHorizontal())
+                    xPosition++;
+                else
+                    yPosition++;
+            }
+            return false;
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            return false;
         }
-        return false;
+    }
+
+    public Boolean equals(Board board) {
+        if(this == board) return true;
+        if(board == null) return false;
+        for(int y = 0; y < this.board.length; y++) {
+            for (int x = 0; x < this.board[y].length; x++)
+                if (this.board[y][x] != board.board[y][x])
+                    return false;
+        }
+        return true;
     }
 
 }
