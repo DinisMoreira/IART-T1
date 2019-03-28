@@ -1,11 +1,6 @@
 package elements;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Move {
-
     // Represents the board of the game before the move is applied to a piece
     private Board oldBoard;
     // Represents the board of the game after the move is applied to a piece
