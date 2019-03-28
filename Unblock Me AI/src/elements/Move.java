@@ -1,11 +1,6 @@
 package elements;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Move {
-
     // Represents the board of the game before the move is applied to a piece
     private Board oldBoard;
     // Represents the board of the game after the move is applied to a piece
@@ -19,7 +14,7 @@ public class Move {
 
     public Move(Board oldBoard, Piece piece, int distance, char direction) {
         this.oldBoard = oldBoard;
-        this.newBoard = oldBoard;
+        this.newBoard = new Board(this.oldBoard);
         this.piece = piece;
         this.distance = distance;
         this.direction = direction;
@@ -53,7 +48,7 @@ public class Move {
         if (!this.oldBoard.canPieceMoveUp(p, d))
             return false;
 
-        p.getPosition().setY(p.getPosition().getY() - d);
+        p.setY(p.getY() - d);
         return true;
     }
 
@@ -61,7 +56,7 @@ public class Move {
         if (!this.oldBoard.canPieceMoveDown(p, d))
             return false;
 
-        p.getPosition().setY(p.getPosition().getY() + d);
+        p.setY(p.getY() + d);
         return true;
     }
 
@@ -69,7 +64,7 @@ public class Move {
         if (!this.oldBoard.canPieceMoveLeft(p, d))
             return false;
 
-        p.getPosition().setX(p.getPosition().getX() - d);
+        p.setX(p.getX() - d);
         return true;
     }
 
@@ -77,7 +72,7 @@ public class Move {
         if (!this.oldBoard.canPieceMoveRight(p, d))
             return false;
 
-        p.getPosition().setX(p.getPosition().getX() + d);
+        p.setX(p.getX() + d);
         return true;
     }
 

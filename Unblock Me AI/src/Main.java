@@ -1,51 +1,44 @@
 import elements.*;
 import algorithm.*;
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Piece p1 = new Piece(new Position(0, 0), 2, true, 'A');
-        Piece mainPiece = new Piece(new Position(0, 1), 2, true, 'Z');
-        Piece p3 = new Piece(new Position(0, 2), 3, false, 'C');
+        // Example board:
+        /* #AA....#
+        ** #...B..#
+        ** #CXXBFT#
+        ** #C..BF.#
+        ** #C.....#
+        ** #......#
+        */
 
-        Board testBoard = new Board(new Position(5, 2), 6, 6, mainPiece);
+        Piece key = new Piece(1, 2, 2, true, 'X');
+        Piece a   = new Piece(0, 0, 2, true, 'A');
+        Piece b   = new Piece(3, 1, 3, false, 'B');
+        Piece c   = new Piece(0, 2, 3, false, 'C');
+        Piece d   = new Piece(4, 2, 2, false, 'D');
 
-        testBoard.addPiece(p1);
-        testBoard.addPiece(mainPiece);
-        testBoard.addPiece(p3);
+        Board board = new Board(5, 2, 6, 6, key);
+        board.addPiece(a);
+        board.addPiece(b);
+        board.addPiece(c);
+        board.addPiece(d);
 
-        testBoard.printBoard();
-        System.out.println();
+        ArrayList<ArrayList<Move>> allMoves = board.getAllMoves();
 
-        Move m1 = new Move(testBoard, mainPiece, 2, 'r');
-        testBoard = m1.getNewBoard();
-
-        testBoard.updateBoard();
-
-        testBoard.printBoard();
-
-
-
-        DFS depth = new DFS(testBoard);
-        depth.solve();
-
-
-
-
-        /*ArrayList<ArrayList<Move>> allMoves;
-
-        allMoves = testBoard.getAllMoves();
-
-        for(int i=0; i<allMoves.size();i++){
-            for(int j=0; j<allMoves.get(i).size();j++){
-                allMoves.get(i).get(j).getOldBoard().printBoard();
+        for (ArrayList<Move> moves : allMoves)
+            for(Move move : moves) {
+                move.getNewBoard().printBoard();
                 System.out.println();
             }
-        }*/
 
-        return;
+
+        
+        
+        DFS depth = new DFS(board);
+        depth.solve();
+
     }
-
-
 }
