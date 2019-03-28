@@ -89,7 +89,7 @@ public class Board {
             int xPosition = piece.getX();
             int yPosition = piece.getY();
             for (int yIterator = 1; yIterator <= distance; ++yIterator)
-                if (board[yPosition - yIterator][xPosition] != '.')
+                if (board[yPosition-yIterator][xPosition] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -105,7 +105,7 @@ public class Board {
             int xPosition = piece.getX();
             int yPosition = piece.getY() + piece.getSize() - 1;
             for (int yIterator = 1; yIterator <= distance; ++yIterator)
-                if (board[yPosition + yIterator][xPosition] != '.')
+                if (board[yPosition+yIterator][xPosition] != '.')
                     return false;
             return true;
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -161,7 +161,6 @@ public class Board {
         return allMoves;
 
     }
-
     public ArrayList<Move> getAllPieceMoves(Board board, Piece piece) {
 
         ArrayList<Move> allPieceMoves;
@@ -194,7 +193,7 @@ public class Board {
                 updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
-                new Move(board, piece, distance, 'l');
+                Move n = new Move(board, piece, distance, 'l');
                 updateBoard();
 
                 distance++;
@@ -210,7 +209,7 @@ public class Board {
                 updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
-                new Move(board, piece, distance, 'd');
+                Move n = new Move(board, piece, distance, 'd');
                 updateBoard();
 
                 distance++;
@@ -225,12 +224,16 @@ public class Board {
                 updateBoard();
 
                 // Undo the move just made in order to correctly generate the remaining moves
-                new Move(board, piece, distance, 'u');
+                Move n = new Move(board, piece, distance, 'u');
                 updateBoard();
 
                 distance++;
             }
         }
+
+        piece.setX(storedX);
+        piece.setY(storedY);
+        board.updateBoard();
 
         return allPieceMoves;
     }
@@ -250,10 +253,10 @@ public class Board {
         int yPosition = keyPiece.getY();
 
         try {
-            for (int sizeIterator = 1; sizeIterator <= keyPiece.getSize(); ++sizeIterator) {
+            for (int sizeIterator = 1; sizeIterator  <= keyPiece.getSize(); ++sizeIterator ) {
                 if (xPosition == targetX && yPosition == targetY)
                     return true;
-                if (keyPiece.isPieceHorizontal())
+                if(keyPiece.isPieceHorizontal())
                     xPosition++;
                 else
                     yPosition++;
@@ -265,11 +268,9 @@ public class Board {
     }
 
     public Boolean equals(Board board) {
-        if (this == board)
-            return true;
-        if (board == null)
-            return false;
-        for (int y = 0; y < this.board.length; y++) {
+        if(this == board) return true;
+        if(board == null) return false;
+        for(int y = 0; y < this.board.length; y++) {
             for (int x = 0; x < this.board[y].length; x++)
                 if (this.board[y][x] != board.board[y][x])
                     return false;
