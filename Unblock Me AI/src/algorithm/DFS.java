@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class DFS extends Algorithm {
+    public int index = 0;
+
     public DFS(Board board) {
         super(board);
     }
 
-    public void solve(){
-        System.out.println("\nInitial Board");
-        this.initialBoard.printBoard();
+    public void solve(int maxDepth){
 
 
 
@@ -20,7 +20,6 @@ public class DFS extends Algorithm {
 
         Vertex root = new Vertex(this.initialBoard, 0, pastBoards);
 
-        int maxDepth = 2;
 
         
         Vertex solution = exploreRoot(root, maxDepth);
@@ -29,8 +28,10 @@ public class DFS extends Algorithm {
             System.out.println("Could not find a solution with DFS algorithm, Max depth = " + maxDepth);
         }
         else{
+            System.out.println("Found Solution!");
             //SHOW SOLUTION
         }
+
         
         /*this.stack.push(root);
 
@@ -46,11 +47,8 @@ public class DFS extends Algorithm {
         Vertex solution = null;
 
         this.stack.push(root);
+        this.allVertexes.add(root);
 
-        System.out.println("\nRoot Board");
-        root.getBoard().printBoard();
-
-        root.setVisited(true);
 
         if(maxDepth <= 0){
             return null;
@@ -80,7 +78,11 @@ public class DFS extends Algorithm {
 
         vertex.setVisited(true);
 
-        if(/*board == SOLUÇÂO*/ false){
+        //PRINT VERTEX BOARD
+        displayVertex(vertex);
+        
+
+        if(vertex.getBoard().checkVictory()){
             return vertex;
         }
 
@@ -95,6 +97,11 @@ public class DFS extends Algorithm {
     public void generateVertexChildren(Vertex vertex){
         ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
 
+        System.out.println();
+        System.out.println("//////////////////////////////////");
+        System.out.println("Children of:");
+        vertex.getBoard().printBoard();
+        System.out.println("-----------------------------------");
 
         for(int i=0; i<allMoves.size();i++){
             for(int j=0; j<allMoves.get(i).size();j++){
@@ -103,7 +110,7 @@ public class DFS extends Algorithm {
                 newPastBoards = vertex.getPastBoards();
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
 
-                
+                System.out.println();
                 
                 if(checkRepeatedVertex(allMoves.get(i).get(j).getNewBoard())){
                     //Create new Vertex
@@ -111,15 +118,22 @@ public class DFS extends Algorithm {
 
                     //ADD CHILD TO STACK
                     this.stack.push(newChild);
+                    this.allVertexes.add(newChild);
 
                     //ADD CHILD TO vertex.neighbours
                     vertex.getNeighbours().add(newChild);
+
+                    //SEE CHILD
+                    newChild.getBoard().printBoard();
+                    System.out.println("NEW CHILD");
                 }
 
                 
-                newPastBoards.remove(newPastBoards.size()-1);
+                //newPastBoards.remove(newPastBoards.size()-1);
             }
         }
+
+        System.out.println("//////////////////////////////////");
 
 
         return;
@@ -127,10 +141,27 @@ public class DFS extends Algorithm {
 
     //UNTESTED
     public Boolean checkRepeatedVertex(Board board){
-        //TO DO
+        
+        for(int i = 0; i < this.allVertexes.size(); i++){
+            if(board.equals(this.allVertexes.get(i).getBoard())){
+                System.out.println("REPEATED BOARD!!!");
+                return false;
+            }
+        }
+
         return true;
     }
+    
 
+    public void displayVertex(Vertex vertex){
+        System.out.println();
+        System.out.println("V. index: " + index);
+        vertex.getBoard().printBoard();
+        System.out.println("Depth: " + vertex.getDepth());
+        System.out.println("Stack Size: " + this.stack.size());
+        System.out.println("Number of V.: " + this.allVertexes.size());           
+        index++;
+    }
 
 
 }
