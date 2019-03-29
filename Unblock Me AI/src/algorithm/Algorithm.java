@@ -3,7 +3,6 @@ package algorithm;
 import elements.*;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import elements.Board;
 import java.util.Stack;
 
 import elements.Vertex;
@@ -20,7 +19,7 @@ public abstract class Algorithm {
         this.stack = new Stack<Vertex>();
     }
 
-
+    //Generates all Children of a Vertex (with all the possíble moves in the Board)
     public void generateVertexChildren(Vertex vertex){
         ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
 
@@ -38,25 +37,22 @@ public abstract class Algorithm {
             for(int j=0; j<allMoves.get(i).size();j++){
                 //Add current board to the new pastBoards List for children
                 ArrayList<Board> newPastBoards = new ArrayList<Board>();
+
                 for(int k = 0; k < vertex.getPastBoards().size(); k++){
                     newPastBoards.add(vertex.getPastBoards().get(k));
                 }
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
 
-
-                
                 if(checkRepeatedVertex(allMoves.get(i).get(j).getNewBoard())){
                     //Create new Vertex
                     Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards);
 
-                    //ADD CHILD TO STACK
+                    //ADD CHILD TO STACK and allVertexes ARRAYLIST
                     this.stack.push(newChild);
                     this.allVertexes.add(newChild);
 
-                    //ADD CHILD TO vertex.neighbours
+                    //ADD CHILD TO Parent's neighbours
                     vertex.getNeighbours().add(newChild);
-
-                    
 
                     //SEE CHILD
                     /*newChild.getBoard().printBoard();
