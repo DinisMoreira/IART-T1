@@ -27,7 +27,10 @@ public class DFS extends Algorithm {
         else{
             System.out.println("Found Solution!");
             //SHOW SOLUTION
-            solution.displayPastBoards();    
+            System.out.println("*********************");
+            solution.displayPastBoards();
+            System.out.println();  
+            System.out.println("*********************");  
             return true;
         }
 

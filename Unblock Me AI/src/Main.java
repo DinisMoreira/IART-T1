@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         int maxDepth = 0;
+        int algNum = 0;
 
 
         // Example board:
@@ -36,43 +37,45 @@ public class Main {
         board.addPiece(f);
 
         while(true){
-        System.out.println();
-        System.out.println("1 - Depth First");
-        System.out.println("2 - Iterative Deepening Depth First");
-        System.out.println("9 - Exit");
-        System.out.println("Choose an algorithm:");
-        int algNum = scn.nextInt();
+            System.out.println();
+            board.printBoard();
+            System.out.println();
+            System.out.println("1 - Depth First");
+            System.out.println("2 - Iterative Deepening Depth First");
+            System.out.println("9 - Exit");
+            System.out.println("Choose an algorithm:");
+            algNum = scn.nextInt();
 
-        if(algNum != 9){
-            System.out.println("Maximum Graph Depth: ");
-            maxDepth = scn.nextInt();
-        }
+            if(algNum < 3){
+                System.out.println("Maximum Graph Depth: ");
+                maxDepth = scn.nextInt();
+            }
 
         
-        System.out.println();
+            System.out.println();
 
-        switch(algNum){
-            case 1:
-                DFS depth = new DFS(board);
-                depth.solve(maxDepth);
-                break;
+            switch(algNum){
+                case 1:
+                    DFS depth = new DFS(board);
+                    depth.solve(maxDepth);
+                    break;
             
 
-            case 2:
+                case 2:
 
-                for(int i = 0; i < maxDepth; i++){
-                    DFS iterDepth = new DFS(board);
-                    if(iterDepth.solve(i)){
-                        break;
+                    for(int i = 0; i <= maxDepth; i++){
+                        DFS iterDepth = new DFS(board);
+                        if(iterDepth.solve(i)){
+                            break;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case 9:
-            return;
+                case 9:
+                return;
             
-            default:
-        }
+                default:
+            }
 
         }
 
