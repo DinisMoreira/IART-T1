@@ -14,8 +14,9 @@ public class DFS extends Algorithm {
 
         ArrayList<Board> pastBoards = new ArrayList<Board>();
         pastBoards.add(this.initialBoard);
+        ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        Vertex root = new Vertex(this.initialBoard, 0, pastBoards);
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves);
 
         Vertex solution = exploreRoot(root, maxDepth);
 
@@ -46,13 +47,11 @@ public class DFS extends Algorithm {
         this.stack.push(root);
         this.allVertexes.add(root);
 
-
-        if(maxDepth <= 0){
+        if(maxDepth < 0){
             return null;
         }
         else{
             solution = exploreGraph(maxDepth);
-
         }
 
         return solution;

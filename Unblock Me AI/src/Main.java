@@ -21,7 +21,7 @@ public class Main {
         Piece d   = new Piece(4, 2, 2, false, 'D');
         Piece e   = new Piece(2, 0, 2, true, 'E');
         Piece f   = new Piece(2, 4, 3, true, 'F');
-
+        
         Board board = new Board(5, 2, 6, 6, key);
         board.addPiece(a);
         board.addPiece(b);
@@ -30,7 +30,7 @@ public class Main {
         board.addPiece(e);
         board.addPiece(f);
 
-        for(int i = 1; i < 100; i++){
+        for(int i = 0; i < 100; i++){
             DFS depth = new DFS(board);
             if(depth.solve(i)){
                 break;

@@ -9,13 +9,15 @@ public class Vertex {
     private Boolean visited;
     private Vertex parent;
     private ArrayList<Board> pastBoards;
+    private ArrayList<Move> pastMoves;
     private ArrayList<Vertex> neighbours;
 
-    public Vertex(Board board, int depth, ArrayList<Board> pastBoards){
+    public Vertex(Board board, int depth, ArrayList<Board> pastBoards, ArrayList<Move> pastMoves){
         this.board = board;
         this.depth = depth;
         this.visited = false;
         this.pastBoards = pastBoards;
+        this.pastMoves = pastMoves;
         this.neighbours = new ArrayList<Vertex>();
     }
 
@@ -39,6 +41,10 @@ public class Vertex {
         return pastBoards;
     }
 
+    public ArrayList<Move> getPastMoves(){
+        return pastMoves;
+    }
+
     public ArrayList<Vertex> getNeighbours(){
         return neighbours;
     }
@@ -46,8 +52,10 @@ public class Vertex {
     public void displayPastBoards(){
         for(int i = 0; i < pastBoards.size(); i++){
                 System.out.println();
-                if(i > 0)
-                    System.out.println("Move " + i);
+                if(i > 0){
+                    System.out.println("Move " + i + ":");
+                    System.out.println("Piece: " + pastMoves.get(i-1).getNewPiece().getIdentificationLetter() + ", Distance: " + pastMoves.get(i-1).getDistance() + ", Direction: " + pastMoves.get(i-1).getDirection() + "\n");
+                }
                 pastBoards.get(i).printBoard();
             } 
     }

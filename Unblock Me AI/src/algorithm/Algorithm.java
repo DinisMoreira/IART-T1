@@ -37,15 +37,21 @@ public abstract class Algorithm {
             for(int j=0; j<allMoves.get(i).size();j++){
                 //Add current board to the new pastBoards List for children
                 ArrayList<Board> newPastBoards = new ArrayList<Board>();
+                ArrayList<Move> newPastMoves = new ArrayList<Move>();
 
                 for(int k = 0; k < vertex.getPastBoards().size(); k++){
                     newPastBoards.add(vertex.getPastBoards().get(k));
                 }
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
 
+                for(int k = 0; k < vertex.getPastMoves().size(); k++){
+                    newPastMoves.add(vertex.getPastMoves().get(k));
+                }
+                newPastMoves.add(allMoves.get(i).get(j));
+
                 if(checkRepeatedVertex(allMoves.get(i).get(j).getNewBoard())){
                     //Create new Vertex
-                    Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards);
+                    Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
 
                     //ADD CHILD TO STACK and allVertexes ARRAYLIST
                     this.stack.push(newChild);

@@ -97,4 +97,7 @@ public class Move {
         return this.distance;
     }
 
+    public char getDirection() {
+        return this.direction;
+    }
 }
