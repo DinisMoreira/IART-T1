@@ -40,7 +40,9 @@ public class Board {
         for (char[] heightIterator : board) {
             Arrays.fill(heightIterator, '.');
         }
-        boardPieces = b.boardPieces;
+        boardPieces = new ArrayList<>();
+        for(Piece piece : b.boardPieces)
+            this.boardPieces.add(new Piece(piece));
     }
 
     public void printBoard() {
@@ -244,6 +246,10 @@ public class Board {
 
     public int getTargetY() {
         return this.targetY;
+    }
+
+    public List<Piece> getPieces() {
+        return this.boardPieces;
     }
 
     public boolean checkVictory() {
