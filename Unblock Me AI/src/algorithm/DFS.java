@@ -30,6 +30,7 @@ public class DFS extends Algorithm {
         else{
             System.out.println("Found Solution!");
             //SHOW SOLUTION
+            solution.displayPastBoards();      
         }
 
         
@@ -103,12 +104,21 @@ public class DFS extends Algorithm {
         vertex.getBoard().printBoard();
         System.out.println("-----------------------------------");
 
+        
+        System.out.println("+++++++++ PARENT PAST BOARDS +++++++++");
+        vertex.displayPastBoards();
+        System.out.println("++++++++++++++++++++++++++++++++++++++");
+
         for(int i=0; i<allMoves.size();i++){
             for(int j=0; j<allMoves.get(i).size();j++){
                 //Add current board to the new pastBoards List for children
                 ArrayList<Board> newPastBoards = new ArrayList<Board>();
-                newPastBoards = vertex.getPastBoards();
+                for(int k = 0; k < vertex.getPastBoards().size(); k++){
+                    newPastBoards.add(vertex.getPastBoards().get(k));
+                } 
+                //newPastBoards = vertex.getPastBoards();
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
+
 
                 System.out.println();
                 
@@ -123,9 +133,14 @@ public class DFS extends Algorithm {
                     //ADD CHILD TO vertex.neighbours
                     vertex.getNeighbours().add(newChild);
 
+                    
+
                     //SEE CHILD
                     newChild.getBoard().printBoard();
                     System.out.println("NEW CHILD");
+                    System.out.println("******** PAST BOARDS *********");
+                    newChild.displayPastBoards();
+                    System.out.println("******************************");
                 }
 
                 
