@@ -43,5 +43,13 @@ public class Vertex {
         return neighbours;
     }
 
+    public void displayPastBoards(){
+        for(int i = 0; i < pastBoards.size(); i++){
+                System.out.println();
+                if(i > 0)
+                    System.out.println("Move " + i);
+                pastBoards.get(i).printBoard();
+            } 
+    }
 
 }
