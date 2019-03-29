@@ -2,7 +2,6 @@ package algorithm;
 
 import elements.*;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
 public class BFS extends Algorithm {
 
@@ -34,20 +33,11 @@ public class BFS extends Algorithm {
             return true;
         }
 
-        
-        /*this.stack.push(root);
-
-        Vertex poppedVertex = this.stack.pop();
-        System.out.println("\nPopped Board");
-        poppedVertex.getBoard().printBoard();
-        System.out.println(poppedVertex.getDepth());
-        */
     }
 
     public Vertex exploreRoot(Vertex root, int maxDepth){
         Vertex solution = null;
 
-        this.stack.push(root);
         this.allVertexes.add(root);
 
         if(maxDepth < 0){
