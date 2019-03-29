@@ -23,6 +23,14 @@ public class Piece {
         this.y = y;
     }
 
+    public Piece(Piece piece) {
+        this(piece.x,
+            piece.y,
+            piece.size,
+            piece.isHorizontal,
+            piece.identificationLetter);
+    }
+
     public int getX() {
         return this.x;
     }
@@ -49,5 +57,17 @@ public class Piece {
 
     public char getIdentificationLetter() {
         return this.identificationLetter;
+    }
+
+    public Boolean equals(Piece piece) {
+        if(this == piece) return true;
+        if(piece == null) return false;
+        final Boolean checkX = this.getX() == piece.getX();
+        final Boolean checkY = this.getY() == piece.getY();
+        final Boolean checkSize = this.getSize() == piece.getSize();
+        final Boolean checkHorizontal = this.isPieceHorizontal() == piece.isPieceHorizontal();
+        final Boolean checkChar = this.getIdentificationLetter() == piece.getIdentificationLetter();
+
+        return checkX && checkY && checkSize && checkHorizontal && checkChar;
     }
 }
