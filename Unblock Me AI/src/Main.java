@@ -25,8 +25,9 @@ public class Main {
         Piece b   = new Piece(3, 1, 3, false, 'B');
         Piece c   = new Piece(0, 1, 3, false, 'C');
         Piece d   = new Piece(4, 2, 2, false, 'D');
-        Piece e   = new Piece(2, 0, 2, true, 'E');
+        Piece e   = new Piece(4, 0, 2, true, 'E');
         Piece f   = new Piece(2, 4, 3, true, 'F');
+        Piece g   = new Piece(5, 1, 3, false, 'G');
 
         Board board = new Board(5, 2, 6, 6, key);
         board.addPiece(a);
@@ -35,6 +36,7 @@ public class Main {
         board.addPiece(d);
         board.addPiece(e);
         board.addPiece(f);
+        board.addPiece(g);
 
         while(true){
             System.out.println();
