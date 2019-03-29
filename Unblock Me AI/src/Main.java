@@ -38,7 +38,7 @@ public class Main {
         
         
         DFS depth = new DFS(board);
-        depth.solve(2);
+        depth.solve(3);
 
     }
 }
