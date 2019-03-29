@@ -5,8 +5,10 @@ public class Move {
     private Board oldBoard;
     // Represents the board of the game after the move is applied to a piece
     private Board newBoard;
+    // Represents the original piece
+    private Piece oldPiece;
     // Represents the piece to be moved
-    private Piece piece;
+    private Piece newPiece;
     // Represents the distance the piece will travel
     private int distance;
     // Represents the direction a piece will be moved in
@@ -14,8 +16,12 @@ public class Move {
 
     public Move(Board oldBoard, Piece piece, int distance, char direction) {
         this.oldBoard = oldBoard;
+        this.oldPiece = piece;
         this.newBoard = new Board(this.oldBoard);
-        this.piece = piece;
+        for(Piece p : newBoard.getPieces()) {
+            if(p.equals(piece))
+                this.newPiece = p;
+        }
         this.distance = distance;
         this.direction = direction;
 
@@ -23,18 +29,18 @@ public class Move {
     }
 
     public boolean movePiece() {
-        if (piece.isPieceHorizontal()) {
+        if (newPiece.isPieceHorizontal()) {
             if (direction == 'l')
-                moveLeft(piece, distance);
+                moveLeft(newPiece, distance);
             else if (direction == 'r')
-                moveRight(piece, distance);
+                moveRight(newPiece, distance);
             else
                 return false;
         } else {
             if (direction == 'u')
-                moveUp(piece, distance);
+                moveUp(newPiece, distance);
             else if (direction == 'd')
-                moveDown(piece, distance);
+                moveDown(newPiece, distance);
             else
                 return false;
         }
@@ -80,8 +86,11 @@ public class Move {
         return this.newBoard;
     }
 
-    public Piece getPiece() {
-        return this.piece;
+    public Piece getOldPiece() {
+        return this.oldPiece;
+    }
+    public Piece getNewPiece() {
+        return this.newPiece;
     }
 
     public int getDistance() {
