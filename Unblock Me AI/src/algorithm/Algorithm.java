@@ -81,11 +81,10 @@ public abstract class Algorithm {
     public Boolean checkRepeatedVertex(Vertex vertex){
         
         for(int i = 0; i < this.allVertexes.size(); i++){
-            if(vertex.getDepth() >= this.allVertexes.get(i).getDepth()){
-                if(vertex.getBoard().equals(this.allVertexes.get(i).getBoard())){
+            if(vertex.getDepth() >= this.allVertexes.get(i).getDepth() && vertex.getBoard().equals(this.allVertexes.get(i).getBoard())){
                     //System.out.println("REPEATED BOARD!!!");
                     return false;
-                }
+                
             }
         }
         return true;
