@@ -253,24 +253,25 @@ public class Board {
     }
 
     public boolean checkVictory() {
+        return getDistanceToTarget() == 0;
+    }
+
+    public int getDistanceToTarget() {
 
         final Piece keyPiece = boardPieces.get(0);
-        int xPosition = keyPiece.getX();
-        int yPosition = keyPiece.getY();
+        final int pieceSize = keyPiece.getSize();
 
-        try {
-            for (int sizeIterator = 1; sizeIterator  <= keyPiece.getSize(); ++sizeIterator ) {
-                if (xPosition == targetX && yPosition == targetY)
-                    return true;
-                if(keyPiece.isPieceHorizontal())
-                    xPosition++;
-                else
-                    yPosition++;
-            }
-            return false;
-        } catch (ArrayIndexOutOfBoundsException exception) {
-            return false;
-        }
+        // Since the same logic can be applied to both axis,
+        // we opted to simplify the amount of code required
+        final int targetPosition = keyPiece.isPieceHorizontal() ?
+            keyPiece.getX() : keyPiece.getY();
+        final int targetValue = keyPiece.isPieceHorizontal() ?
+            this.targetX : this.targetY;
+
+        if(targetPosition >= targetValue) // If the target is closer to (0,0) than keyPiece is
+            return targetPosition - targetValue;
+        else // If keyPiece if closer to (0, 0) than the target is
+            return targetValue - (targetPosition + pieceSize - 1);
     }
 
     public Boolean equals(Board board) {
