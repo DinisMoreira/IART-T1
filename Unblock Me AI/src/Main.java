@@ -23,7 +23,7 @@ public class Main {
         Piece key = new Piece(1, 2, 2, true, 'X');
         Piece a   = new Piece(0, 0, 2, true, 'A');
         Piece b   = new Piece(3, 1, 3, false, 'B');
-        Piece c   = new Piece(0, 1, 3, false, 'C');
+        Piece c   = new Piece(0, 2, 3, false, 'C');
         Piece d   = new Piece(4, 2, 2, false, 'D');
         Piece e   = new Piece(4, 0, 2, true, 'E');
         Piece f   = new Piece(2, 4, 3, true, 'F');

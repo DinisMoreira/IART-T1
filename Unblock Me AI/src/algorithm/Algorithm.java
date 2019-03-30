@@ -49,10 +49,12 @@ public abstract class Algorithm {
                 }
                 newPastMoves.add(allMoves.get(i).get(j));
 
-                if(checkRepeatedVertex(allMoves.get(i).get(j).getNewBoard())){
-                    //Create new Vertex
-                    Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
+                 //Create new Vertex
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
 
+
+                if(checkRepeatedVertex(newChild)){
+                   
                     //ADD CHILD TO STACK and allVertexes ARRAYLIST
                     this.stack.push(newChild);
                     this.allVertexes.add(newChild);
@@ -76,12 +78,14 @@ public abstract class Algorithm {
     }
 
 
-    public Boolean checkRepeatedVertex(Board board){
+    public Boolean checkRepeatedVertex(Vertex vertex){
         
         for(int i = 0; i < this.allVertexes.size(); i++){
-            if(board.equals(this.allVertexes.get(i).getBoard())){
-                //System.out.println("REPEATED BOARD!!!");
-                return false;
+            if(vertex.getDepth() >= this.allVertexes.get(i).getDepth()){
+                if(vertex.getBoard().equals(this.allVertexes.get(i).getBoard())){
+                    //System.out.println("REPEATED BOARD!!!");
+                    return false;
+                }
             }
         }
         return true;
