@@ -263,15 +263,41 @@ public class Board {
 
         // Since the same logic can be applied to both axis,
         // we opted to simplify the amount of code required
-        final int targetPosition = keyPiece.isPieceHorizontal() ?
+        final int keyPosition = keyPiece.isPieceHorizontal() ?
             keyPiece.getX() : keyPiece.getY();
         final int targetValue = keyPiece.isPieceHorizontal() ?
             this.targetX : this.targetY;
 
-        if(targetPosition >= targetValue) // If the target is closer to (0,0) than keyPiece is
-            return targetPosition - targetValue;
+        if(keyPosition >= targetValue) // If the target is closer to (0,0) than keyPiece is
+            return keyPosition - targetValue;
         else // If keyPiece if closer to (0, 0) than the target is
-            return targetValue - (targetPosition + pieceSize - 1);
+            return targetValue - (keyPosition + pieceSize - 1);
+    }
+
+    public int getAmountPiecesToTarget() {
+        final Piece keyPiece = boardPieces.get(0);
+        int xPosition = keyPiece.getX();
+        int yPosition = keyPiece.getY();
+        // Adjust positions in case it's size is needed for calculations
+        xPosition += (keyPiece.getX() >= this.targetX) ? 0 : keyPiece.getSize()-1; 
+        yPosition += (keyPiece.getY() >= this.targetY) ? 0 : keyPiece.getSize()-1; 
+        
+        char comparableChar = keyPiece.getIdentificationLetter();
+        int amountOfPieces = 0;
+        for(int i = 0; i <= getDistanceToTarget(); i++) {
+            if( this.getBoard()[yPosition][xPosition] != '.' && 
+                this.getBoard()[yPosition][xPosition] != comparableChar)
+            {
+                comparableChar = this.getBoard()[yPosition][xPosition];
+                amountOfPieces++;
+            }
+
+            if(keyPiece.isPieceHorizontal())
+                xPosition += (keyPiece.getX() >= this.targetX) ? -1 : 1;
+            else
+                yPosition += (keyPiece.getY() >= this.targetY) ? -1 : 1;
+        }
+        return amountOfPieces;
     }
 
     public Boolean equals(Board board) {
