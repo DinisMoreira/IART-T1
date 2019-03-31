@@ -21,7 +21,7 @@ public class DFS extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         if(solution == null){
-            System.out.println("Could not find a solution with DFS algorithm, Max depth = " + maxDepth);
+            System.out.println("Could not find a solution with Depth First algorithm, Max depth = " + maxDepth);
             return false;
         }
         else{

@@ -13,6 +13,7 @@ public abstract class Algorithm {
     protected Board initialBoard;
     protected Stack<Vertex> stack;
     protected ArrayList<Vertex> allVertexes = new ArrayList<Vertex>();
+    protected ArrayList<Vertex> unexploredVertexes = new ArrayList<Vertex>();
 
     Algorithm(Board board) {
         this.initialBoard = board;
@@ -58,6 +59,7 @@ public abstract class Algorithm {
                     //ADD CHILD TO STACK and allVertexes ARRAYLIST
                     this.stack.push(newChild);
                     this.allVertexes.add(newChild);
+                    this.unexploredVertexes.add(newChild);
 
                     //ADD CHILD TO Parent's neighbours
                     vertex.getNeighbours().add(newChild);

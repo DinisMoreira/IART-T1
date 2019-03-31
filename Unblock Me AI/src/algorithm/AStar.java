@@ -3,9 +3,9 @@ package algorithm;
 import elements.*;
 import java.util.ArrayList;
 
-public class BFS extends Algorithm {
+public class AStar extends Algorithm {
 
-    public BFS(Board board) {
+    public AStar(Board board) {
         super(board);
     }
 
@@ -20,7 +20,7 @@ public class BFS extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         if(solution == null){
-            System.out.println("Could not find a solution with Breadth First algorithm, Max depth = " + maxDepth);
+            System.out.println("Could not find a solution with A Star algorithm, Max depth = " + maxDepth);
             return false;
         }
         else{
@@ -39,6 +39,7 @@ public class BFS extends Algorithm {
         Vertex solution = null;
 
         this.allVertexes.add(root);
+        this.unexploredVertexes.add(root);
 
         if(maxDepth < 0){
             return null;
@@ -51,12 +52,18 @@ public class BFS extends Algorithm {
     }
 
     public Vertex exploreGraph(int maxDepth){
-        Vertex vertex;
-        int idx = 0;
-
+        Vertex vertex = unexploredVertexes.get(0);
+        int closestIdx;
 
         do{
-            vertex = allVertexes.get(idx);
+            closestIdx = getVertexIdxOfPossibleBestSolution();
+
+            if(closestIdx != 2147483647){
+                //System.out.println("ClosestIdx: " + closestIdx);
+                //System.out.println("allVertexes.size: " + allVertexes.size());
+                vertex = unexploredVertexes.get(closestIdx);
+                unexploredVertexes.remove(closestIdx);
+            }
 
             vertex.setVisited(true);
 
@@ -68,10 +75,23 @@ public class BFS extends Algorithm {
                 generateVertexChildren(vertex);
             }
 
-            idx++;
-        }while(allVertexes.size() >= (idx -1));
+        }while(unexploredVertexes.size() > 0);
 
         return null;
+    }
+
+    public int getVertexIdxOfPossibleBestSolution(){
+        int closestVal = 2147483647;
+        int closestIdx = 2147483647;
+
+        for(int i = 0; i < unexploredVertexes.size(); i++){
+            if(closestVal > unexploredVertexes.get(i).getOptSolDepth()){
+                closestVal = unexploredVertexes.get(i).getOptSolDepth();
+                closestIdx = i;
+            }
+        }
+
+        return closestIdx;
     }
 
 

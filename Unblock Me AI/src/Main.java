@@ -45,11 +45,12 @@ public class Main {
             System.out.println("1 - Depth First");
             System.out.println("2 - Iterative Deepening Depth First");
             System.out.println("3 - Breadth First");
+            System.out.println("4 - A*");
             System.out.println("9 - Exit");
             System.out.println("Choose an algorithm:");
             algNum = scn.nextInt();
 
-            if(algNum < 4){
+            if(algNum < 5){
                 System.out.println("Maximum Graph Depth: ");
                 maxDepth = scn.nextInt();
             }
@@ -76,6 +77,11 @@ public class Main {
                 case 3:
                     BFS breadth = new BFS(board);
                     breadth.solve(maxDepth);
+                    break;
+
+                case 4:
+                    AStar aStar = new AStar(board);
+                    aStar.solve(maxDepth);
                     break;
 
                 case 9:
