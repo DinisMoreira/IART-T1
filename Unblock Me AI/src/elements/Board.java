@@ -45,6 +45,12 @@ public class Board {
             this.boardPieces.add(new Piece(piece));
     }
 
+    public int getWidth(){
+        return width;
+    }
+
+
+
     public void printBoard() {
         for (char[] heightIterator : board) {
             System.out.print("#");

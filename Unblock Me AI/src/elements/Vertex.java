@@ -19,7 +19,7 @@ public class Vertex {
         this.visited = false;
         this.pastBoards = pastBoards;
         this.pastMoves = pastMoves;
-        this.optSolDepth = depth + board.getDistanceToTarget();
+        this.optSolDepth = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
         this.neighbours = new ArrayList<Vertex>();
     }
 
