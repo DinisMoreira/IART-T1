@@ -39,12 +39,13 @@ public class Main {
             System.out.println("2 - Iterative Deepening Depth First");
             System.out.println("3 - Breadth First");
             System.out.println("4 - A*");
+            System.out.println("5 - Greedy");
             System.out.println("5 - Try to solve it yourself!");
             System.out.println("9 - Exit");
             System.out.println("Choose an algorithm:");
             algNum = scn.nextInt();
 
-            if (algNum < 5) {
+            if (algNum < 6) {
                 System.out.println("Maximum Graph Depth: ");
                 maxDepth = scn.nextInt();
             }
@@ -77,6 +78,11 @@ public class Main {
                 break;
 
             case 5:
+                Greedy greedy = new Greedy(board);
+                greedy.solve(maxDepth);
+                break;
+
+            case 6:
                 UI ui = new UI(board);
                 ui.UILoop();
                 break;

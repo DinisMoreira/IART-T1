@@ -16,7 +16,7 @@ public class DFS extends Algorithm {
         pastBoards.add(this.initialBoard);
         ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves);
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves, 0);
 
         Vertex solution = exploreRoot(root, maxDepth);
 
@@ -112,7 +112,7 @@ public class DFS extends Algorithm {
                 newPastMoves.add(allMoves.get(i).get(j));
 
                  //Create new Vertex
-                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves, 0);
 
                 if(checkRepeatedVertex(newChild)){
                    
