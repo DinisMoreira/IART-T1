@@ -74,5 +74,42 @@ public class BFS extends Algorithm {
         return null;
     }
 
+    //Generates all Children of a Vertex (with all the possíble moves in the Board)
+    public void generateVertexChildren(Vertex vertex){
+        ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
+
+        for(int i=0; i<allMoves.size();i++){
+            for(int j=0; j<allMoves.get(i).size();j++){
+                //Add current board to the new pastBoards List for children
+                ArrayList<Board> newPastBoards = new ArrayList<Board>();
+                ArrayList<Move> newPastMoves = new ArrayList<Move>();
+
+                for(int k = 0; k < vertex.getPastBoards().size(); k++){
+                    newPastBoards.add(vertex.getPastBoards().get(k));
+                }
+                newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
+
+                for(int k = 0; k < vertex.getPastMoves().size(); k++){
+                    newPastMoves.add(vertex.getPastMoves().get(k));
+                }
+                newPastMoves.add(allMoves.get(i).get(j));
+
+                 //Create new Vertex
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
+
+                if(checkRepeatedVertex(newChild)){
+                   
+                    //ADD CHILD TO STACK
+                    this.allVertexes.add(newChild);
+
+                    //ADD CHILD TO Parent's neighbours
+                    vertex.getNeighbours().add(newChild);
+                }
+            }
+        }
+
+        return;
+    }
+
 
 }
