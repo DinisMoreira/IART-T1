@@ -13,13 +13,19 @@ public class Vertex {
     private int optSolDistance;
     private ArrayList<Vertex> neighbours;
 
-    public Vertex(Board board, int depth, ArrayList<Board> pastBoards, ArrayList<Move> pastMoves){
+    public Vertex(Board board, int depth, ArrayList<Board> pastBoards, ArrayList<Move> pastMoves, int type){
         this.board = board;
         this.depth = depth;
         this.visited = false;
         this.pastBoards = pastBoards;
         this.pastMoves = pastMoves;
-        this.optSolDistance = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
+        if(type == 1)
+            this.optSolDistance = depth + board.getAmountPiecesToTarget();
+        else if(type == 2)
+            this.optSolDistance = board.getAmountPiecesToTarget();
+        else{
+            this.optSolDistance = 0;
+        }
         this.neighbours = new ArrayList<Vertex>();
     }
 

@@ -3,9 +3,9 @@ package algorithm;
 import elements.*;
 import java.util.ArrayList;
 
-public class AStar extends Algorithm {
+public class Greedy extends Algorithm {
 
-    public AStar(Board board) {
+    public Greedy(Board board) {
         super(board);
     }
 
@@ -15,7 +15,7 @@ public class AStar extends Algorithm {
         pastBoards.add(this.initialBoard);
         ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves, 1);
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves, 2);
 
         Vertex solution = exploreRoot(root, maxDepth);
 
@@ -115,7 +115,7 @@ public class AStar extends Algorithm {
                 newPastMoves.add(allMoves.get(i).get(j));
 
                  //Create new Vertex
-                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves, 1);
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves, 2);
 
                 if(checkRepeatedVertex(newChild)){
                    

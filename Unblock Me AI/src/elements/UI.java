@@ -48,7 +48,6 @@ public class UI {
         if (answer == 'y') {
             BFS breadth = new BFS(this.board);
             breadth.getHint(10);
-            this.board.printBoard();
         }
 
     }
