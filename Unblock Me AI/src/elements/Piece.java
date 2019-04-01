@@ -24,11 +24,10 @@ public class Piece {
     }
 
     public Piece(Piece piece) {
-        this(piece.x,
-            piece.y,
-            piece.size,
-            piece.isHorizontal,
-            piece.identificationLetter);
+        this(piece.x, piece.y, piece.size, piece.isHorizontal, piece.identificationLetter);
+    }
+
+    public Piece() {
     }
 
     public int getX() {
@@ -60,8 +59,10 @@ public class Piece {
     }
 
     public Boolean equals(Piece piece) {
-        if(this == piece) return true;
-        if(piece == null) return false;
+        if (this == piece)
+            return true;
+        if (piece == null)
+            return false;
         final Boolean checkX = this.getX() == piece.getX();
         final Boolean checkY = this.getY() == piece.getY();
         final Boolean checkSize = this.getSize() == piece.getSize();
