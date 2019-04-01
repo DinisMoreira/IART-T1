@@ -1,5 +1,7 @@
 package elements;
 
+import algorithm.*;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +26,7 @@ public class UI {
 
         while (!this.board.checkVictory()) {
             this.board.printBoard();
+            askHint();
             askForPiece();
             askForDirection();
         }
@@ -31,6 +34,23 @@ public class UI {
         this.board.printBoard();
 
         System.out.println("\nYou Won!\n");
+    }
+
+    public void askHint() {
+
+        char answer = 'a';
+
+        System.out.println("\nDo you need a hint?");
+        System.out.print("Answer (y/n): ");
+
+        answer = scanner.next().charAt(0);
+
+        if (answer == 'y') {
+            BFS breadth = new BFS(this.board);
+            breadth.getHint(10);
+            this.board.printBoard();
+        }
+
     }
 
     public void askForDirection() {

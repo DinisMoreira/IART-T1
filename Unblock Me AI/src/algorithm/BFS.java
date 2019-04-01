@@ -9,7 +9,7 @@ public class BFS extends Algorithm {
         super(board);
     }
 
-    public Boolean solve(int maxDepth){
+    public void getHint(int maxDepth) {
 
         ArrayList<Board> pastBoards = new ArrayList<Board>();
         pastBoards.add(this.initialBoard);
@@ -19,90 +19,105 @@ public class BFS extends Algorithm {
 
         Vertex solution = exploreRoot(root, maxDepth);
 
-        if(solution == null){
+        System.out.println("\nSuggested Move: ");
+        solution.getPastBoards().get(1).printBoard();
+        System.out.println("\n");
+
+        return;
+    }
+
+    public Boolean solve(int maxDepth) {
+
+        ArrayList<Board> pastBoards = new ArrayList<Board>();
+        pastBoards.add(this.initialBoard);
+        ArrayList<Move> pastMoves = new ArrayList<Move>();
+
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves);
+
+        Vertex solution = exploreRoot(root, maxDepth);
+
+        if (solution == null) {
             System.out.println("Could not find a solution with Breadth First algorithm, Max depth = " + maxDepth);
             return false;
-        }
-        else{
+        } else {
             System.out.println("Found Solution!");
-            //SHOW SOLUTION
+            // SHOW SOLUTION
             System.out.println("*********************");
             solution.displayPastBoards();
-            System.out.println();  
-            System.out.println("*********************");  
+            System.out.println();
+            System.out.println("*********************");
             return true;
         }
 
     }
 
-    public Vertex exploreRoot(Vertex root, int maxDepth){
+    public Vertex exploreRoot(Vertex root, int maxDepth) {
         Vertex solution = null;
 
         this.allVertexes.add(root);
 
-        if(maxDepth < 0){
+        if (maxDepth < 0) {
             return null;
-        }
-        else{
+        } else {
             solution = exploreGraph(maxDepth);
         }
 
         return solution;
     }
 
-    public Vertex exploreGraph(int maxDepth){
+    public Vertex exploreGraph(int maxDepth) {
         Vertex vertex;
         int idx = 0;
 
-
-        do{
+        do {
             vertex = allVertexes.get(idx);
 
             vertex.setVisited(true);
 
-            if(vertex.getBoard().checkVictory()){
+            if (vertex.getBoard().checkVictory()) {
                 return vertex;
             }
 
-            if(vertex.getDepth() < maxDepth){
+            if (vertex.getDepth() < maxDepth) {
                 generateVertexChildren(vertex);
             }
 
             idx++;
-        }while(allVertexes.size() >= (idx -1));
+        } while (allVertexes.size() >= (idx - 1));
 
         return null;
     }
 
-    //Generates all Children of a Vertex (with all the possíble moves in the Board)
-    public void generateVertexChildren(Vertex vertex){
+    // Generates all Children of a Vertex (with all the possíble moves in the Board)
+    public void generateVertexChildren(Vertex vertex) {
         ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
 
-        for(int i=0; i<allMoves.size();i++){
-            for(int j=0; j<allMoves.get(i).size();j++){
-                //Add current board to the new pastBoards List for children
+        for (int i = 0; i < allMoves.size(); i++) {
+            for (int j = 0; j < allMoves.get(i).size(); j++) {
+                // Add current board to the new pastBoards List for children
                 ArrayList<Board> newPastBoards = new ArrayList<Board>();
                 ArrayList<Move> newPastMoves = new ArrayList<Move>();
 
-                for(int k = 0; k < vertex.getPastBoards().size(); k++){
+                for (int k = 0; k < vertex.getPastBoards().size(); k++) {
                     newPastBoards.add(vertex.getPastBoards().get(k));
                 }
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
 
-                for(int k = 0; k < vertex.getPastMoves().size(); k++){
+                for (int k = 0; k < vertex.getPastMoves().size(); k++) {
                     newPastMoves.add(vertex.getPastMoves().get(k));
                 }
                 newPastMoves.add(allMoves.get(i).get(j));
 
-                 //Create new Vertex
-                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves);
+                // Create new Vertex
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth() + 1, newPastBoards,
+                        newPastMoves);
 
-                if(checkRepeatedVertex(newChild)){
-                   
-                    //ADD CHILD TO STACK
+                if (checkRepeatedVertex(newChild)) {
+
+                    // ADD CHILD TO STACK
                     this.allVertexes.add(newChild);
 
-                    //ADD CHILD TO Parent's neighbours
+                    // ADD CHILD TO Parent's neighbours
                     vertex.getNeighbours().add(newChild);
                 }
             }
@@ -110,6 +125,5 @@ public class BFS extends Algorithm {
 
         return;
     }
-
 
 }
