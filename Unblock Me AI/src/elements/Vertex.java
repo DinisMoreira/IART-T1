@@ -20,13 +20,9 @@ public class Vertex {
         this.pastBoards = pastBoards;
         this.pastMoves = pastMoves;
         if(type == 1)
-            this.optSolDistance = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
-        else if(type == 2)
-            this.optSolDistance = board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
-        else if(type == 3)
-            this.optSolDistance = depth + board.getDistanceToTarget();
-        else if(type == 4)
             this.optSolDistance = depth + board.getAmountPiecesToTarget();
+        else if(type == 2)
+            this.optSolDistance = board.getAmountPiecesToTarget();
         else{
             this.optSolDistance = 0;
         }
