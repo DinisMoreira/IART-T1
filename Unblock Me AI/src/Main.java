@@ -47,7 +47,7 @@ public class Main {
             System.out.println("Choose an algorithm:");
             algNum = scn.nextInt();
 
-            if (algNum <= 6 && algNum > 0) {
+            if (algNum <= 5 && algNum > 0) {
                 System.out.println("Maximum Graph Depth: ");
                 maxDepth = scn.nextInt();
             }
