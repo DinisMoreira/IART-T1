@@ -24,7 +24,9 @@ public class Vertex {
         else if(type == 2)
             this.optSolDistance = board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
         else if(type == 3)
-            this.optSolDistance = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
+            this.optSolDistance = depth + board.getDistanceToTarget();
+        else if(type == 4)
+            this.optSolDistance = depth + board.getAmountPiecesToTarget();
         else{
             this.optSolDistance = 0;
         }
