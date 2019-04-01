@@ -85,8 +85,8 @@ public class AStar extends Algorithm {
         int closestIdx = 2147483647;
 
         for(int i = 0; i < unexploredVertexes.size(); i++){
-            if(closestVal > unexploredVertexes.get(i).getOptSolDepth()){
-                closestVal = unexploredVertexes.get(i).getOptSolDepth();
+            if(closestVal > unexploredVertexes.get(i).getoptSolDistance()){
+                closestVal = unexploredVertexes.get(i).getoptSolDistance();
                 closestIdx = i;
             }
         }

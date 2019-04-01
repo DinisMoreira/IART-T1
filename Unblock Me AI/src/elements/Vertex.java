@@ -10,7 +10,7 @@ public class Vertex {
     private Vertex parent;
     private ArrayList<Board> pastBoards;
     private ArrayList<Move> pastMoves;
-    private int optSolDepth;
+    private int optSolDistance;
     private ArrayList<Vertex> neighbours;
 
     public Vertex(Board board, int depth, ArrayList<Board> pastBoards, ArrayList<Move> pastMoves){
@@ -19,7 +19,7 @@ public class Vertex {
         this.visited = false;
         this.pastBoards = pastBoards;
         this.pastMoves = pastMoves;
-        this.optSolDepth = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
+        this.optSolDistance = depth + board.getDistanceToTarget() + (board.getWidth() * board.getAmountPiecesToTarget());
         this.neighbours = new ArrayList<Vertex>();
     }
 
@@ -51,8 +51,8 @@ public class Vertex {
         return neighbours;
     }
 
-    public int getOptSolDepth(){
-        return optSolDepth;
+    public int getoptSolDistance(){
+        return optSolDistance;
     }
 
     public void displayPastBoards(){
