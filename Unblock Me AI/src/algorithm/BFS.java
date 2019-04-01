@@ -1,95 +1,129 @@
 package algorithm;
 
-import elements.Board;
-
 import elements.*;
 import java.util.ArrayList;
 
 public class BFS extends Algorithm {
-     public BFS(Board board) {
+
+    public BFS(Board board) {
         super(board);
     }
 
-    public void solve(){
-        System.out.println("\nInitial Board");
-        this.initialBoard.printBoard();
-
-
+    public void getHint(int maxDepth) {
 
         ArrayList<Board> pastBoards = new ArrayList<Board>();
         pastBoards.add(this.initialBoard);
+        ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        Vertex root = new Vertex(this.initialBoard, 0, pastBoards);
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves);
 
-        int maxDepth = 0;
+        Vertex solution = exploreRoot(root, maxDepth);
 
-        
-        exploreGraph(root, 2);
-        
-        /*this.stack.push(root);
+        System.out.println("\nSuggested Move: ");
+        solution.getPastBoards().get(1).printBoard();
+        System.out.println("\n");
 
-        Vertex poppedVertex = this.stack.pop();
-        System.out.println("\nPopped Board");
-        poppedVertex.getBoard().printBoard();
-        System.out.println(poppedVertex.getDepth());
-        */
+        return;
     }
 
-    //UNTESTED & TO DO
-    public Vertex exploreGraph(Vertex root, int maxDepth){
-        this.stack.push(root);
+    public Boolean solve(int maxDepth) {
 
-        System.out.println("\nRoot Board");
-        root.getBoard().printBoard();
+        ArrayList<Board> pastBoards = new ArrayList<Board>();
+        pastBoards.add(this.initialBoard);
+        ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        if(maxDepth <= 0){
-            return root;
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves);
+
+        Vertex solution = exploreRoot(root, maxDepth);
+
+        if (solution == null) {
+            System.out.println("Could not find a solution with Breadth First algorithm, Max depth = " + maxDepth);
+            return false;
+        } else {
+            System.out.println("Found Solution!");
+            // SHOW SOLUTION
+            System.out.println("*********************");
+            solution.displayPastBoards();
+            System.out.println();
+            System.out.println("*********************");
+            return true;
         }
-        else{
-
-        }
-
-
-        return root;
 
     }
 
-    //UNTESTED & TO DO
-    public ArrayList<Vertex> generateVertexChildren(Vertex vertex){
-        ArrayList<Vertex> children = new ArrayList<Vertex>();
-        ArrayList<Board> newPastBoards = new ArrayList<Board>();
-        
+    public Vertex exploreRoot(Vertex root, int maxDepth) {
+        Vertex solution = null;
 
+        this.allVertexes.add(root);
 
+        if (maxDepth < 0) {
+            return null;
+        } else {
+            solution = exploreGraph(maxDepth);
+        }
+
+        return solution;
+    }
+
+    public Vertex exploreGraph(int maxDepth) {
+        Vertex vertex;
+        int idx = 0;
+
+        do {
+            vertex = allVertexes.get(idx);
+
+            vertex.setVisited(true);
+
+            if (vertex.getBoard().checkVictory()) {
+                return vertex;
+            }
+
+            if (vertex.getDepth() < maxDepth) {
+                generateVertexChildren(vertex);
+            }
+
+            idx++;
+        } while (allVertexes.size() >= (idx - 1));
+
+        return null;
+    }
+
+    // Generates all Children of a Vertex (with all the possíble moves in the Board)
+    public void generateVertexChildren(Vertex vertex) {
         ArrayList<ArrayList<Move>> allMoves = vertex.getBoard().getAllMoves();
 
-        for(int i=0; i<allMoves.size();i++){
-            for(int j=0; j<allMoves.get(i).size();j++){
-                //Create new pastBoards List
-                newPastBoards = vertex.getPastBoards();
+        for (int i = 0; i < allMoves.size(); i++) {
+            for (int j = 0; j < allMoves.get(i).size(); j++) {
+                // Add current board to the new pastBoards List for children
+                ArrayList<Board> newPastBoards = new ArrayList<Board>();
+                ArrayList<Move> newPastMoves = new ArrayList<Move>();
+
+                for (int k = 0; k < vertex.getPastBoards().size(); k++) {
+                    newPastBoards.add(vertex.getPastBoards().get(k));
+                }
                 newPastBoards.add(allMoves.get(i).get(j).getNewBoard());
 
-                
-                //Create new Vertex
-                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, vertex.getPastBoards());
-                if(checkRepeatedVertex(newChild)){
-                    //ADD CHILD TO STACK
-                    //ADD CHILD TO vertex.neighbours
+                for (int k = 0; k < vertex.getPastMoves().size(); k++) {
+                    newPastMoves.add(vertex.getPastMoves().get(k));
                 }
+                newPastMoves.add(allMoves.get(i).get(j));
 
-                
-                
+                // Create new Vertex
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth() + 1, newPastBoards,
+                        newPastMoves);
+
+                if (checkRepeatedVertex(newChild)) {
+
+                    // ADD CHILD TO STACK
+                    this.allVertexes.add(newChild);
+
+                    // ADD CHILD TO Parent's neighbours
+                    vertex.getNeighbours().add(newChild);
+                }
             }
         }
 
-        return children;
-
-
+        return;
     }
 
-    //UNTESTED
-    public Boolean checkRepeatedVertex(Vertex vertex){
-        //TO DO
-        return true;
-    }
 }

@@ -2,11 +2,10 @@ package algorithm;
 
 import elements.*;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
-public class DFS extends Algorithm {
+public class AStar extends Algorithm {
 
-    public DFS(Board board) {
+    public AStar(Board board) {
         super(board);
     }
 
@@ -21,7 +20,7 @@ public class DFS extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         if(solution == null){
-            System.out.println("Could not find a solution with Depth First algorithm, Max depth = " + maxDepth);
+            System.out.println("Could not find a solution with A Star algorithm, Max depth = " + maxDepth);
             return false;
         }
         else{
@@ -34,21 +33,13 @@ public class DFS extends Algorithm {
             return true;
         }
 
-        
-        /*this.stack.push(root);
-
-        Vertex poppedVertex = this.stack.pop();
-        System.out.println("\nPopped Board");
-        poppedVertex.getBoard().printBoard();
-        System.out.println(poppedVertex.getDepth());
-        */
     }
 
     public Vertex exploreRoot(Vertex root, int maxDepth){
         Vertex solution = null;
 
-        this.stack.push(root);
         this.allVertexes.add(root);
+        this.unexploredVertexes.add(root);
 
         if(maxDepth < 0){
             return null;
@@ -60,36 +51,48 @@ public class DFS extends Algorithm {
         return solution;
     }
 
-
     public Vertex exploreGraph(int maxDepth){
-        Vertex vertex;
-        if(this.stack.size() <= 0){
-            return null;
-        }
-        
-        vertex = this.stack.pop();
+        Vertex vertex = unexploredVertexes.get(0);
+        int closestIdx;
 
-        /*System.out.println("\nPopped Board");
-        vertex.getBoard().printBoard();
-        System.out.println(vertex.getDepth());
-        System.out.println(stack.size());*/
+        do{
+            closestIdx = getVertexIdxOfPossibleBestSolution();
 
-        vertex.setVisited(true);
+            if(closestIdx != 2147483647){
+                //System.out.println("ClosestIdx: " + closestIdx);
+                //System.out.println("allVertexes.size: " + allVertexes.size());
+                vertex = unexploredVertexes.get(closestIdx);
+                unexploredVertexes.remove(closestIdx);
+            }
 
-        //PRINT VERTEX BOARD
-        //displayVertex(vertex);
-        
-        if(vertex.getBoard().checkVictory()){
-            return vertex;
-        }
+            vertex.setVisited(true);
 
-        if(maxDepth > vertex.getDepth()){
-            generateVertexChildren(vertex);
-        }
+            if(vertex.getBoard().checkVictory()){
+                return vertex;
+            }
 
-        return exploreGraph(maxDepth);
+            if(vertex.getDepth() < maxDepth){
+                generateVertexChildren(vertex);
+            }
+
+        }while(unexploredVertexes.size() > 0);
+
+        return null;
     }
 
+    public int getVertexIdxOfPossibleBestSolution(){
+        int closestVal = 2147483647;
+        int closestIdx = 2147483647;
+
+        for(int i = 0; i < unexploredVertexes.size(); i++){
+            if(closestVal > unexploredVertexes.get(i).getoptSolDistance()){
+                closestVal = unexploredVertexes.get(i).getoptSolDistance();
+                closestIdx = i;
+            }
+        }
+
+        return closestIdx;
+    }
 
     //Generates all Children of a Vertex (with all the possíble moves in the Board)
     public void generateVertexChildren(Vertex vertex){
@@ -116,9 +119,9 @@ public class DFS extends Algorithm {
 
                 if(checkRepeatedVertex(newChild)){
                    
-                    //ADD CHILD TO STACK and allVertexes ARRAYLIST
-                    this.stack.push(newChild);
+                    //ADD CHILD TO allVertexes ARRAYLIST AND unexploredVertexes ARRAYLIST
                     this.allVertexes.add(newChild);
+                    this.unexploredVertexes.add(newChild);
 
                     //ADD CHILD TO Parent's neighbours
                     vertex.getNeighbours().add(newChild);
@@ -128,5 +131,6 @@ public class DFS extends Algorithm {
 
         return;
     }
+
 
 }
