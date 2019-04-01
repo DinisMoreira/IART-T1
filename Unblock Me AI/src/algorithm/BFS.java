@@ -20,6 +20,9 @@ public class BFS extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         System.out.println("\nSuggested Move: ");
+        System.out.println("Piece: " + solution.getPastMoves().get(0).getNewPiece().getIdentificationLetter()
+                + ", Distance: " + solution.getPastMoves().get(0).getDistance() + ", Direction: "
+                + solution.getPastMoves().get(0).getDirection() + "\n");
         solution.getPastBoards().get(1).printBoard();
         System.out.println("\n");
 
