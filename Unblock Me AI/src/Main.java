@@ -16,8 +16,8 @@ public class Main {
         long endTime = 0L;
         long duration = 0L;
 
-        while (levelNum <= 0 || levelNum > 5) {
-            System.out.println("What Level would you like? (1-5)");
+        while (levelNum <= 0 || levelNum > 6) {
+            System.out.println("What Level would you like? (1-6)");
             levelNum = scn.nextInt();
         }
 
@@ -118,8 +118,8 @@ public class Main {
 
             case 9:
                 levelNum = 0;
-                while (levelNum <= 0 || levelNum > 5) {
-                    System.out.println("What Level would you like? (1-5)");
+                while (levelNum <= 0 || levelNum > 6) {
+                    System.out.println("What Level would you like? (1-6)");
                     levelNum = scn.nextInt();
                 }
                 board = selectLevel(levelNum);
