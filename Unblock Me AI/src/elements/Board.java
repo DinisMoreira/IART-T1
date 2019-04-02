@@ -47,8 +47,6 @@ public class Board {
         return width;
     }
 
-
-
     public void printBoard() {
         for (char[] heightIterator : board) {
             System.out.print("#");
@@ -368,7 +366,6 @@ public class Board {
         Set<Character> keys = foundChars.keySet();
         ArrayList<Character> keysToRemove = new ArrayList<Character>();
 
-
         for(Character key: keys){
             if(foundChars.get(key)[0] == '.' || foundChars.get(key)[1] == '.'){
                 keysToRemove.add(key);
@@ -381,8 +378,6 @@ public class Board {
 
         blockage = blockage + keys.size();
 
-        
-        
         //Add blockage if it's the only time appering in table
         keys = foundChars.keySet();
 
@@ -408,20 +403,6 @@ public class Board {
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     public Boolean equals(Board board) {
         if(this == board) return true;
