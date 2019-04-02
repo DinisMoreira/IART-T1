@@ -1,9 +1,7 @@
-TamanhoX,TamanhoY, ObjectiveX, ObjectiveY; //BOARD
-KeyX, KeyY, KeySize, KeyOrientation, KeyChar; //KEY
-PieceX, PieceY, PieceSize, PieceOrientation, PieceChar; //PIECES
-PieceX, PieceY, PieceSize, PieceOrientation, PieceChar;
-PieceX, PieceY, PieceSize, PieceOrientation, PieceChar;
+TamanhoX,TamanhoY, ObjectiveX, ObjectiveY //BOARD
+KeyX, KeyY, KeySize, KeyOrientation, KeyChar //KEY
+PieceX, PieceY, PieceSize, PieceOrientation, PieceChar //PIECES
+PieceX, PieceY, PieceSize, PieceOrientation, PieceChar
+PieceX, PieceY, PieceSize, PieceOrientation, PieceChar
 ...
-PieceX, PieceY, PieceSize, PieceOrientation, PieceChar;
-
-
+PieceX, PieceY, PieceSize, PieceOrientation, PieceChar

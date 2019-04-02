@@ -12,9 +12,13 @@ public class Main {
         int algNum = 0;
         int levelNum = 0;
 
+        long startTime = 0L;
+        long endTime = 0L;
+        long duration = 0L;  //divide by 1000000 to get milliseconds.
+
         
-        while(levelNum <= 0 || levelNum > 2){
-            System.out.println("What Level Would you like? (1-2)");
+        while(levelNum <= 0 || levelNum > 4){
+            System.out.println("What Level would you like? (1-4)");
             levelNum = scn.nextInt();
         }
 
@@ -29,13 +33,14 @@ public class Main {
             System.out.println("3 - Breadth First");
             System.out.println("4 - A*");
             System.out.println("5 - Greedy");
-            System.out.println("6 - Try to solve it yourself!");
+            System.out.println("6 - Iterative Deepening Greedy");
+            System.out.println("7 - Try to solve it yourself!");
             System.out.println("8 - Select Level");
             System.out.println("9 - Exit");
             System.out.println("Choose an algorithm:");
             algNum = scn.nextInt();
 
-            if (algNum <= 5 && algNum > 0) {
+            if (algNum <= 6 && algNum > 0) {
                 System.out.println("Maximum Graph Depth: ");
                 maxDepth = scn.nextInt();
             }
@@ -45,42 +50,63 @@ public class Main {
             switch (algNum) {
             case 1:
                 DFS depth = new DFS(board);
+                startTime = System.nanoTime();
                 depth.solve(maxDepth);
+                endTime = System.nanoTime();
                 break;
 
             case 2:
+                startTime = System.nanoTime();
                 for (int i = 0; i <= maxDepth; i++) {
                     DFS iterDepth = new DFS(board);
                     if (iterDepth.solve(i)) {
                         break;
                     }
                 }
+                endTime = System.nanoTime();
                 break;
 
             case 3:
                 BFS breadth = new BFS(board);
+                startTime = System.nanoTime();
                 breadth.solve(maxDepth);
+                endTime = System.nanoTime();
                 break;
 
             case 4:
                 AStar aStar = new AStar(board);
+                startTime = System.nanoTime();
                 aStar.solve(maxDepth);
+                endTime = System.nanoTime();
                 break;
 
             case 5:
                 Greedy greedy = new Greedy(board);
+                startTime = System.nanoTime();
                 greedy.solve(maxDepth);
+                endTime = System.nanoTime();
                 break;
 
             case 6:
+                startTime = System.nanoTime();
+                for (int i = 0; i <= maxDepth; i++) {
+                    Greedy iterGreedy = new Greedy(board);
+                    if (iterGreedy.solve(i)) {
+                        break;
+                    }
+                }
+                endTime = System.nanoTime();
+                break;
+
+            case 7:
                 UI ui = new UI(board);
                 ui.UILoop();
                 break;
 
             case 8:
                 levelNum = 0;
-                while(levelNum <= 0 || levelNum > 2){
-                    System.out.println("What Level Would you like? (1-2)");
+                while(levelNum <= 0 || levelNum > 4){
+                    System.out.println("What Level would you like? (1-4)");
                     levelNum = scn.nextInt();
                 }
                 board = selectLevel(levelNum);
@@ -92,6 +118,8 @@ public class Main {
             default:
             }
 
+            duration = (endTime - startTime);
+            System.out.println("Time: " + duration/1000000 + " ms");
         }
 
     }
