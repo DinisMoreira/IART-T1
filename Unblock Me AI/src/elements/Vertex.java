@@ -23,6 +23,8 @@ public class Vertex {
             this.optSolDistance = depth + board.getAmountPiecesToTarget();
         else if(type == 2)
             this.optSolDistance = board.getAmountPiecesToTarget();
+        else if(type == 3)
+            this.optSolDistance = depth + board.getBlockageToTarget();
         else{
             this.optSolDistance = 0;
         }

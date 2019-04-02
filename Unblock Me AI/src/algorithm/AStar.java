@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 public class AStar extends Algorithm {
 
-    public AStar(Board board) {
+    private int type;
+
+    public AStar(Board board, int type) {
         super(board);
+        this.type = type;
     }
 
     public Boolean solve(int maxDepth){
@@ -15,7 +18,7 @@ public class AStar extends Algorithm {
         pastBoards.add(this.initialBoard);
         ArrayList<Move> pastMoves = new ArrayList<Move>();
 
-        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves, 1);
+        Vertex root = new Vertex(this.initialBoard, 0, pastBoards, pastMoves, type);
 
         Vertex solution = exploreRoot(root, maxDepth);
 
@@ -29,7 +32,9 @@ public class AStar extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();  
-            System.out.println("*********************");  
+            System.out.println("* * * * * * * * * * *");
+            System.out.println("Number of vertexes created: " + this.allVertexes.size());
+            System.out.println("Number of vertexes seen: " + this.numVertexesSeen);
             return true;
         }
 
@@ -59,13 +64,12 @@ public class AStar extends Algorithm {
             closestIdx = getVertexIdxOfPossibleBestSolution();
 
             if(closestIdx != 2147483647){
-                //System.out.println("ClosestIdx: " + closestIdx);
-                //System.out.println("allVertexes.size: " + allVertexes.size());
                 vertex = unexploredVertexes.get(closestIdx);
                 unexploredVertexes.remove(closestIdx);
             }
 
             vertex.setVisited(true);
+            this.numVertexesSeen++;
 
             if(vertex.getBoard().checkVictory()){
                 return vertex;
@@ -115,7 +119,7 @@ public class AStar extends Algorithm {
                 newPastMoves.add(allMoves.get(i).get(j));
 
                  //Create new Vertex
-                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves, 1);
+                Vertex newChild = new Vertex(allMoves.get(i).get(j).getNewBoard(), vertex.getDepth()+1, newPastBoards, newPastMoves, type);
 
                 if(checkRepeatedVertex(newChild)){
                    

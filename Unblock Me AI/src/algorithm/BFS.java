@@ -48,7 +48,9 @@ public class BFS extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();
-            System.out.println("*********************");
+            System.out.println("* * * * * * * * * * *");
+            System.out.println("Number of vertexes created: " + this.allVertexes.size());
+            System.out.println("Number of vertexes seen: " + this.numVertexesSeen);
             return true;
         }
 
@@ -76,6 +78,7 @@ public class BFS extends Algorithm {
             vertex = allVertexes.get(idx);
 
             vertex.setVisited(true);
+            this.numVertexesSeen++;
 
             if (vertex.getBoard().checkVictory()) {
                 return vertex;
