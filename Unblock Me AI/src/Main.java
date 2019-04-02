@@ -16,13 +16,8 @@ public class Main {
         long endTime = 0L;
         long duration = 0L;
 
-
-
-
-
-        
-        while(levelNum <= 0 || levelNum > 4){
-            System.out.println("What Level would you like? (1-4)");
+        while (levelNum <= 0 || levelNum > 5) {
+            System.out.println("What Level would you like? (1-5)");
             levelNum = scn.nextInt();
         }
 
@@ -123,8 +118,8 @@ public class Main {
 
             case 9:
                 levelNum = 0;
-                while(levelNum <= 0 || levelNum > 4){
-                    System.out.println("What Level would you like? (1-4)");
+                while (levelNum <= 0 || levelNum > 5) {
+                    System.out.println("What Level would you like? (1-5)");
                     levelNum = scn.nextInt();
                 }
                 board = selectLevel(levelNum);
@@ -137,12 +132,11 @@ public class Main {
             }
 
             duration = (endTime - startTime);
-            System.out.println("Time: " + duration/1000000 + " ms");
+            System.out.println("Time: " + duration / 1000000 + " ms");
             System.out.println("*********************");
         }
 
     }
-
 
     public static Board selectLevel(int levelNum) throws Exception {
         int i = 0;
@@ -164,31 +158,31 @@ public class Main {
         ArrayList<Integer> piecesOrientation = new ArrayList<Integer>();
         ArrayList<Character> piecesChar = new ArrayList<Character>();
 
-        File file = new File("boards/board" + levelNum + ".txt"); 
-  
-        BufferedReader br = new BufferedReader(new FileReader(file)); 
-  
-        //Read From File
+        File file = new File("boards/board" + levelNum + ".txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        // Read From File
         while ((str = br.readLine()) != null) {
 
-            parts = str.split(","); 
+            parts = str.split(",");
 
-            if(i==0){ //BOARD
+            if (i == 0) { // BOARD
                 boardX = Integer.parseInt(parts[0]);
                 boardY = Integer.parseInt(parts[1]);
                 objectiveX = Integer.parseInt(parts[2]);
                 objectiveY = Integer.parseInt(parts[3]);
             }
 
-            else if(i==1){
+            else if (i == 1) {
                 keyX = Integer.parseInt(parts[0]);
                 keyY = Integer.parseInt(parts[1]);
                 keySize = Integer.parseInt(parts[2]);
                 keyOrientation = Integer.parseInt(parts[3]);
                 keyChar = parts[4].charAt(0);
             }
-            
-            else{
+
+            else {
                 piecesX.add(Integer.parseInt(parts[0]));
                 piecesY.add(Integer.parseInt(parts[1]));
                 piecesSize.add(Integer.parseInt(parts[2]));
@@ -199,12 +193,12 @@ public class Main {
             i++;
         }
 
-        //Build Board
+        // Build Board
         Boolean orientation = true;
 
-        if(keyOrientation == 0)
+        if (keyOrientation == 0)
             orientation = false;
-        else{
+        else {
             orientation = true;
         }
 
@@ -212,10 +206,10 @@ public class Main {
 
         Board board = new Board(objectiveX, objectiveY, boardX, boardY, key);
 
-        for(int j=0; j<piecesX.size(); j++){
-            if(piecesOrientation.get(j) == 0)
+        for (int j = 0; j < piecesX.size(); j++) {
+            if (piecesOrientation.get(j) == 0)
                 orientation = false;
-            else{
+            else {
                 orientation = true;
             }
 
