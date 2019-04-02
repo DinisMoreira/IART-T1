@@ -14,7 +14,7 @@ public class Main {
 
         long startTime = 0L;
         long endTime = 0L;
-        long duration = 0L;  //divide by 1000000 to get milliseconds.
+        long duration = 0L;
 
         
         while(levelNum <= 0 || levelNum > 4){
@@ -28,16 +28,16 @@ public class Main {
             System.out.println();
             board.printBoard();
             System.out.println();
-            System.out.println("1 - Depth First");
-            System.out.println("2 - Iterative Deepening Depth First");
-            System.out.println("3 - Breadth First");
-            System.out.println("4 - A*");
-            System.out.println("5 - Greedy");
-            System.out.println("6 - Iterative Deepening Greedy");
+            System.out.println("1 - Solve using Depth First");
+            System.out.println("2 - Solve using Iterative Deepening Depth First");
+            System.out.println("3 - Solve using Breadth First");
+            System.out.println("4 - Solve using A*");
+            System.out.println("5 - Solve using Greedy");
+            System.out.println("6 - Solve using Iterative Deepening Greedy");
             System.out.println("7 - Try to solve it yourself!");
             System.out.println("8 - Select Level");
             System.out.println("9 - Exit");
-            System.out.println("Choose an algorithm:");
+            System.out.println("What do you want to do?");
             algNum = scn.nextInt();
 
             if (algNum <= 6 && algNum > 0) {
@@ -151,9 +151,6 @@ public class Main {
   
         //Read From File
         while ((str = br.readLine()) != null) {
-            System.out.println(i);
-            System.out.println(str); 
-            System.out.println();
 
             parts = str.split(","); 
 

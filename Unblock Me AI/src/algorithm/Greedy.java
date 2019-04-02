@@ -20,7 +20,7 @@ public class Greedy extends Algorithm {
         Vertex solution = exploreRoot(root, maxDepth);
 
         if(solution == null){
-            System.out.println("Could not find a solution with A Star algorithm, Max depth = " + maxDepth);
+            System.out.println("Could not find a solution with Greedy algorithm, Max depth = " + maxDepth);
             return false;
         }
         else{
