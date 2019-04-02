@@ -3,35 +3,22 @@ import elements.*;
 import algorithm.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         int maxDepth = 0;
         int algNum = 0;
+        int levelNum = 0;
 
-        // Example board:
-        /*
-         * #AAEE..# #C..B..# #CXXBD.# #C..BD.# #..FFF.# #......#
-         */
+        
+        while(levelNum <= 0 || levelNum > 2){
+            System.out.println("What Level Would you like? (1-2)");
+            levelNum = scn.nextInt();
+        }
 
-        Piece key = new Piece(1, 2, 2, true, 'X');
-        Piece a = new Piece(0, 0, 2, true, 'A');
-        Piece b = new Piece(3, 1, 3, false, 'B');
-        Piece c = new Piece(0, 2, 3, false, 'C');
-        Piece d = new Piece(4, 2, 2, false, 'D');
-        Piece e = new Piece(2, 4, 3, true, 'E');
-        Piece f = new Piece(5, 1, 3, false, 'F');
-        Piece g = new Piece(3, 0, 3, true, 'G');
-
-        Board board = new Board(5, 2, 6, 6, key);
-        board.addPiece(a);
-        board.addPiece(b);
-        board.addPiece(c);
-        board.addPiece(d);
-        board.addPiece(e);
-        board.addPiece(f);
-        board.addPiece(g);
+        Board board = selectLevel(levelNum);
 
         while (true) {
             System.out.println();
@@ -43,6 +30,7 @@ public class Main {
             System.out.println("4 - A*");
             System.out.println("5 - Greedy");
             System.out.println("6 - Try to solve it yourself!");
+            System.out.println("8 - Select Level");
             System.out.println("9 - Exit");
             System.out.println("Choose an algorithm:");
             algNum = scn.nextInt();
@@ -89,6 +77,15 @@ public class Main {
                 ui.UILoop();
                 break;
 
+            case 8:
+                levelNum = 0;
+                while(levelNum <= 0 || levelNum > 2){
+                    System.out.println("What Level Would you like? (1-2)");
+                    levelNum = scn.nextInt();
+                }
+                board = selectLevel(levelNum);
+                break;
+
             case 9:
                 return;
 
@@ -97,5 +94,91 @@ public class Main {
 
         }
 
+    }
+
+
+    public static Board selectLevel(int levelNum) throws Exception {
+        int i = 0;
+        String[] parts;
+        String str;
+
+        int boardX = 6;
+        int boardY = 6;
+        int objectiveX = 5;
+        int objectiveY = 2;
+        int keyX = 0;
+        int keyY = 0;
+        int keySize = 2;
+        int keyOrientation = 1;
+        char keyChar = 'K';
+        ArrayList<Integer> piecesX = new ArrayList<Integer>();
+        ArrayList<Integer> piecesY = new ArrayList<Integer>();
+        ArrayList<Integer> piecesSize = new ArrayList<Integer>();
+        ArrayList<Integer> piecesOrientation = new ArrayList<Integer>();
+        ArrayList<Character> piecesChar = new ArrayList<Character>();
+
+        File file = new File("boards/board" + levelNum + ".txt"); 
+  
+        BufferedReader br = new BufferedReader(new FileReader(file)); 
+  
+        //Read From File
+        while ((str = br.readLine()) != null) {
+            System.out.println(i);
+            System.out.println(str); 
+            System.out.println();
+
+            parts = str.split(","); 
+
+            if(i==0){ //BOARD
+                boardX = Integer.parseInt(parts[0]);
+                boardY = Integer.parseInt(parts[1]);
+                objectiveX = Integer.parseInt(parts[2]);
+                objectiveY = Integer.parseInt(parts[3]);
+            }
+
+            else if(i==1){
+                keyX = Integer.parseInt(parts[0]);
+                keyY = Integer.parseInt(parts[1]);
+                keySize = Integer.parseInt(parts[2]);
+                keyOrientation = Integer.parseInt(parts[3]);
+                keyChar = parts[4].charAt(0);
+            }
+            
+            else{
+                piecesX.add(Integer.parseInt(parts[0]));
+                piecesY.add(Integer.parseInt(parts[1]));
+                piecesSize.add(Integer.parseInt(parts[2]));
+                piecesOrientation.add(Integer.parseInt(parts[3]));
+                piecesChar.add(parts[4].charAt(0));
+            }
+
+            i++;
+        }
+
+        //Build Board
+        Boolean orientation = true;
+
+        if(keyOrientation == 0)
+            orientation = false;
+        else{
+            orientation = true;
+        }
+
+        Piece key = new Piece(keyX, keyY, keySize, orientation, keyChar);
+
+        Board board = new Board(objectiveX, objectiveY, boardX, boardY, key);
+
+        for(int j=0; j<piecesX.size(); j++){
+            if(piecesOrientation.get(j) == 0)
+                orientation = false;
+            else{
+                orientation = true;
+            }
+
+            Piece p = new Piece(piecesX.get(j), piecesY.get(j), piecesSize.get(j), orientation, piecesChar.get(j));
+            board.addPiece(p);
+        }
+
+        return board;
     }
 }
