@@ -1,8 +1,6 @@
 package elements;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Board {
     // Keeps track of all pieces
@@ -305,6 +303,125 @@ public class Board {
         }
         return amountOfPieces;
     }
+
+
+
+        public int getBlockageToTarget() {
+        final Piece keyPiece = this.boardPieces.get(0);
+        final int amountOfPiecesToTarget = getAmountPiecesToTarget();
+        int xPosition = keyPiece.getX();
+        int yPosition = keyPiece.getY();
+        // Adjust positions in case it's size is needed for calculations
+        xPosition += (keyPiece.getX() >= this.targetX) ? 0 : keyPiece.getSize()-1; 
+        yPosition += (keyPiece.getY() >= this.targetY) ? 0 : keyPiece.getSize()-1;
+        Hashtable<Character, Character[]> foundChars = new Hashtable<>(); // (piece blocking, list of pieces it blocks)
+        int blockage = amountOfPiecesToTarget;
+
+        for(int plays = 0; plays < amountOfPiecesToTarget; plays++) {
+            if(keyPiece.isPieceHorizontal())
+                xPosition += (keyPiece.getX() >= this.targetX) ? -1 : 1;
+            else
+                yPosition += (keyPiece.getY() >= this.targetY) ? -1 : 1;
+
+            char currentChar = board[yPosition][xPosition];
+            // Look for blockage in directions away from (0, 0)
+            try {
+                char explorationChar = currentChar; //This variable is meant to iterate the currently found piece
+                int xIterator = 0;
+                int yIterator = 0;
+                //Iterate through current piece, until letter is different
+                while(explorationChar == currentChar){
+                    if(keyPiece.isPieceHorizontal())
+                        yIterator++;
+                    else
+                        xIterator++;
+                    explorationChar = board[yPosition+yIterator][xPosition+xIterator];
+                }
+                if(explorationChar != '.') {
+                    Character[] tempChars = new Character[2];
+                    tempChars[0] = explorationChar;
+                    tempChars[1] = '.';
+                    foundChars.put(currentChar, tempChars);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {}
+            // Look for blockage in directions towards (0, 0)
+            try {
+                char explorationChar = currentChar; //This variable is meant to iterate the currently found piece
+                int xIterator = 0;
+                int yIterator = 0;
+                //Iterate through current piece, until letter is different
+                while(explorationChar == currentChar){
+                    if(keyPiece.isPieceHorizontal())
+                        yIterator++;
+                    else
+                        xIterator++;
+                    explorationChar = board[yPosition-yIterator][xPosition-xIterator];
+                }
+                if(explorationChar != '.') {
+                    if(foundChars.get(currentChar) != null)
+                        foundChars.get(currentChar)[1] = explorationChar;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {}
+        }
+
+        //Remove pieces that aren't blocked both ways
+        Set<Character> keys = foundChars.keySet();
+        ArrayList<Character> keysToRemove = new ArrayList<Character>();
+
+
+        for(Character key: keys){
+            if(foundChars.get(key)[0] == '.' || foundChars.get(key)[1] == '.'){
+                keysToRemove.add(key);
+            }
+        }
+
+        for(int i = 0; i < keysToRemove.size(); i++){
+            foundChars.remove(keysToRemove.get(i));
+        }
+
+        blockage = blockage + keys.size();
+
+        
+        
+        //Add blockage if it's the only time appering in table
+        keys = foundChars.keySet();
+
+
+        if(keys.size() > 1){
+            Character firstKey = keys.iterator().next();
+            for(Character key: keys){
+                    if(key != firstKey){
+                         if(foundChars.get(firstKey)[0] == foundChars.get(key)[0] && foundChars.get(firstKey)[1] == foundChars.get(key)[1]){
+                             blockage--;
+                         }
+                  }
+            }
+        }
+
+        return blockage;
+    }
+
+    private Boolean doesCharExistInList(List<Character> list, char character) {
+        for(char c : list) {
+            if(c == character)
+               return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     public Boolean equals(Board board) {
         if(this == board) return true;

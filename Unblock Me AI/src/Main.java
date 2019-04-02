@@ -16,6 +16,10 @@ public class Main {
         long endTime = 0L;
         long duration = 0L;
 
+
+
+
+
         
         while(levelNum <= 0 || levelNum > 4){
             System.out.println("What Level would you like? (1-4)");
@@ -23,6 +27,12 @@ public class Main {
         }
 
         Board board = selectLevel(levelNum);
+        /*board.printBoard();
+
+        int h = board.getBlockageToTarget();
+
+        System.out.println(h);*/
+
 
         while (true) {
             System.out.println();
@@ -31,16 +41,17 @@ public class Main {
             System.out.println("1 - Solve using Depth First");
             System.out.println("2 - Solve using Iterative Deepening Depth First");
             System.out.println("3 - Solve using Breadth First");
-            System.out.println("4 - Solve using A*");
-            System.out.println("5 - Solve using Greedy");
-            System.out.println("6 - Solve using Iterative Deepening Greedy");
-            System.out.println("7 - Try to solve it yourself!");
-            System.out.println("8 - Select Level");
-            System.out.println("9 - Exit");
+            System.out.println("4 - Solve using A* (Number of pieces in front)");
+            System.out.println("5 - Solve using A* (Number of pieces in front + blocked pieces)");
+            System.out.println("6 - Solve using Greedy");
+            System.out.println("7 - Solve using Iterative Deepening Greedy");
+            System.out.println("8 - Try to solve it yourself!");
+            System.out.println("9 - Select Level");
+            System.out.println("10 - Exit");
             System.out.println("What do you want to do?");
             algNum = scn.nextInt();
 
-            if (algNum <= 6 && algNum > 0) {
+            if (algNum <= 7 && algNum > 0) {
                 System.out.println("Maximum Graph Depth: ");
                 maxDepth = scn.nextInt();
             }
@@ -74,23 +85,30 @@ public class Main {
                 break;
 
             case 4:
-                AStar aStar = new AStar(board);
+                AStar aStar1 = new AStar(board, 1);
                 startTime = System.nanoTime();
-                aStar.solve(maxDepth);
+                aStar1.solve(maxDepth);
                 endTime = System.nanoTime();
                 break;
 
             case 5:
-                Greedy greedy = new Greedy(board);
+                AStar aStar2 = new AStar(board, 3);
+                startTime = System.nanoTime();
+                aStar2.solve(maxDepth);
+                endTime = System.nanoTime();
+                break;
+
+            case 6:
+                AStar greedy = new AStar(board, 2);
                 startTime = System.nanoTime();
                 greedy.solve(maxDepth);
                 endTime = System.nanoTime();
                 break;
 
-            case 6:
+            case 7:
                 startTime = System.nanoTime();
                 for (int i = 0; i <= maxDepth; i++) {
-                    Greedy iterGreedy = new Greedy(board);
+                    AStar iterGreedy = new AStar(board, 2);
                     if (iterGreedy.solve(i)) {
                         break;
                     }
@@ -98,12 +116,12 @@ public class Main {
                 endTime = System.nanoTime();
                 break;
 
-            case 7:
+            case 8:
                 UI ui = new UI(board);
                 ui.UILoop();
                 break;
 
-            case 8:
+            case 9:
                 levelNum = 0;
                 while(levelNum <= 0 || levelNum > 4){
                     System.out.println("What Level would you like? (1-4)");
@@ -112,7 +130,7 @@ public class Main {
                 board = selectLevel(levelNum);
                 break;
 
-            case 9:
+            case 10:
                 return;
 
             default:
