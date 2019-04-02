@@ -29,7 +29,7 @@ public class Greedy extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();  
-            System.out.println("*********************");
+            System.out.println("* * * * * * * * * * *");
             System.out.println("Number of vertexes created: " + this.allVertexes.size());
             System.out.println("Number of vertexes seen: " + this.numVertexesSeen);
             return true;
@@ -61,8 +61,6 @@ public class Greedy extends Algorithm {
             closestIdx = getVertexIdxOfPossibleBestSolution();
 
             if(closestIdx != 2147483647){
-                //System.out.println("ClosestIdx: " + closestIdx);
-                //System.out.println("allVertexes.size: " + allVertexes.size());
                 vertex = unexploredVertexes.get(closestIdx);
                 unexploredVertexes.remove(closestIdx);
             }

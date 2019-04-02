@@ -120,6 +120,7 @@ public class Main {
 
             duration = (endTime - startTime);
             System.out.println("Time: " + duration/1000000 + " ms");
+            System.out.println("*********************");
         }
 
     }

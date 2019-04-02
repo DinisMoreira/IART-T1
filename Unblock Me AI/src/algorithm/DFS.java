@@ -30,20 +30,11 @@ public class DFS extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();  
-            System.out.println("*********************");
+            System.out.println("* * * * * * * * * * *");
             System.out.println("Number of vertexes created: " + this.allVertexes.size());
-            System.out.println("Number of vertexes seen: " + this.numVertexesSeen);    
+            System.out.println("Number of vertexes seen: " + this.numVertexesSeen); 
             return true;
         }
-
-        
-        /*this.stack.push(root);
-
-        Vertex poppedVertex = this.stack.pop();
-        System.out.println("\nPopped Board");
-        poppedVertex.getBoard().printBoard();
-        System.out.println(poppedVertex.getDepth());
-        */
     }
 
     public Vertex exploreRoot(Vertex root, int maxDepth){
@@ -71,16 +62,8 @@ public class DFS extends Algorithm {
         
         vertex = this.stack.pop();
 
-        /*System.out.println("\nPopped Board");
-        vertex.getBoard().printBoard();
-        System.out.println(vertex.getDepth());
-        System.out.println(stack.size());*/
-
         vertex.setVisited(true);
         this.numVertexesSeen++;
-
-        //PRINT VERTEX BOARD
-        //displayVertex(vertex);
         
         if(vertex.getBoard().checkVictory()){
             return vertex;
