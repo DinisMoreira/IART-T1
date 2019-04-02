@@ -21,7 +21,11 @@ public abstract class Algorithm {
         this.stack = new Stack<Vertex>();
     }
 
-    
+    public abstract Boolean solve(int maxDepth);
+    public abstract Vertex exploreRoot(Vertex root, int maxDepth);
+    public abstract Vertex exploreGraph(int maxDepth);
+    public abstract void generateVertexChildren(Vertex vertex);
+
 
 
     public Boolean checkRepeatedVertex(Vertex vertex){
