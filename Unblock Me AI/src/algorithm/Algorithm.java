@@ -14,6 +14,7 @@ public abstract class Algorithm {
     protected Stack<Vertex> stack;
     protected ArrayList<Vertex> allVertexes = new ArrayList<Vertex>();
     protected ArrayList<Vertex> unexploredVertexes = new ArrayList<Vertex>();
+    protected int numVertexesSeen = 0;
 
     Algorithm(Board board) {
         this.initialBoard = board;

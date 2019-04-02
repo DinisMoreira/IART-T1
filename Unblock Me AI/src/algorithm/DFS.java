@@ -30,7 +30,9 @@ public class DFS extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();  
-            System.out.println("*********************");  
+            System.out.println("*********************");
+            System.out.println("Number of vertexes created: " + this.allVertexes.size());
+            System.out.println("Number of vertexes seen: " + this.numVertexesSeen);    
             return true;
         }
 
@@ -75,6 +77,7 @@ public class DFS extends Algorithm {
         System.out.println(stack.size());*/
 
         vertex.setVisited(true);
+        this.numVertexesSeen++;
 
         //PRINT VERTEX BOARD
         //displayVertex(vertex);

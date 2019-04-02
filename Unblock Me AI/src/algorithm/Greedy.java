@@ -29,7 +29,9 @@ public class Greedy extends Algorithm {
             System.out.println("*********************");
             solution.displayPastBoards();
             System.out.println();  
-            System.out.println("*********************");  
+            System.out.println("*********************");
+            System.out.println("Number of vertexes created: " + this.allVertexes.size());
+            System.out.println("Number of vertexes seen: " + this.numVertexesSeen);
             return true;
         }
 
@@ -66,6 +68,7 @@ public class Greedy extends Algorithm {
             }
 
             vertex.setVisited(true);
+            this.numVertexesSeen++;
 
             if(vertex.getBoard().checkVictory()){
                 return vertex;
