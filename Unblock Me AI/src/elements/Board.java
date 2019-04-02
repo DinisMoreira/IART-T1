@@ -48,10 +48,26 @@ public class Board {
     }
 
     public void printBoard() {
-        for (char[] heightIterator : board) {
-            System.out.print("#");
-            System.out.print(heightIterator);
-            System.out.println("#");
+        final Piece keyPiece = boardPieces.get(0);
+        int adjustedTargetX = targetX+1;
+        int adjustedTargetY = targetY+1;
+        if(keyPiece.isPieceHorizontal())
+            adjustedTargetX += (keyPiece.getX() >= this.targetX) ? -1 :  1;
+        else
+            adjustedTargetY += (keyPiece.getY() >= this.targetY) ? -1 :  1;
+
+        for(int yIterator = 0; yIterator < width+2; yIterator++) {
+            for(int xIterator = 0; xIterator < height+2; xIterator++) {
+                if(xIterator == adjustedTargetX && yIterator == adjustedTargetY)
+                    System.out.print('T');
+                else if(yIterator == 0 || yIterator == width+1 ||
+                    xIterator == 0 || xIterator == height+1 )
+                    System.out.print('#');
+                else
+                    System.out.print(board[yIterator-1][xIterator-1]);
+
+                if(xIterator == height+1) System.out.println();
+            }
         }
     }
 
