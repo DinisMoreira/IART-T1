@@ -30,7 +30,8 @@ sh run.sh
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/d68921f5-531e-4e25-ad08-d68cab451b72)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/31c1a985-4fbe-46c4-bc4a-a424ea95d7b4)
 
-'#' = The board's edge\n
+'#' = The board's edge
+
 'T' = The board's exit space
 '.' = Empty space
 'X' = The main piece (objective piece)
