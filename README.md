@@ -1,5 +1,10 @@
 # IART-T1
 
+## Unblock Me, search algorithm solver
+
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/6cb8b33d-047f-4c51-aa56-5e5790f08962)
+
+
 ## Instructions
 
 In a machine with Java Development Kit intalled:
@@ -24,6 +29,12 @@ sh run.sh
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/47393b1e-ea9a-4167-92cc-3943e223c52c)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/d68921f5-531e-4e25-ad08-d68cab451b72)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/31c1a985-4fbe-46c4-bc4a-a424ea95d7b4)
+
+'#' = The board's edge
+'T' = The board's exit space
+'.' = Empty space
+'X' = The main piece (objective piece)
+Other letters = Other pieces
 
 ### Choose the algorithm you want to use to solve the problem
 
