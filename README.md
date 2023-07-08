@@ -33,8 +33,11 @@ sh run.sh
 '#' = The board's edge
 
 'T' = The board's exit space
+
 '.' = Empty space
+
 'X' = The main piece (objective piece)
+
 Other letters = Other pieces
 
 ### Choose the algorithm you want to use to solve the problem
