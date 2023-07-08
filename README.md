@@ -2,7 +2,8 @@
 
 ## Unblock Me, search algorithms
 
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/6cb8b33d-047f-4c51-aa56-5e5790f08962)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/4c30b899-c2ac-4189-9060-152f8df97174)
+
 
 
 ## Instructions
@@ -24,12 +25,12 @@ sh run.sh
 ### Choose what level you want to solve
 
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/ed6c8286-8609-4971-af2f-2c2551e9a1be)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/7c483ceb-c275-4a4f-a82d-7e9149f5b79e)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/a14f2452-0364-4ce8-af4e-503dcefc23ab)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/dc7c4cb4-6daa-4d05-b50f-ebe876861e07)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/7aec8641-7e74-4ac5-b491-b2279444cfd3)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/a81849c0-51b0-4c72-823b-c7246e663055)
 
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/e37f46fc-4333-41cf-97e3-77b7142c292f)
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/7b2a47f0-748c-4a65-b1d7-437e05ede874)
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/47393b1e-ea9a-4167-92cc-3943e223c52c)
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/d68921f5-531e-4e25-ad08-d68cab451b72)
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/31c1a985-4fbe-46c4-bc4a-a424ea95d7b4)
 
 '#' = The board's edge
 
@@ -43,13 +44,13 @@ Other letters = Other pieces
 
 ### Choose the algorithm you want to use to solve the problem
 
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/be03a860-1b61-448d-8c25-4ecca44cc5d4)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/40f8953b-06c4-44da-8f12-7e62276a7f4b)
 
 If the algorithm requires it, choose the maximum depth of the search graph
 
 ### After this you will be presented with the best solution found
 
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/b390aa47-c4f8-4bdc-83b1-a39534f62b5e)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/9ee5556e-13b5-4d44-97be-ce7ada33802b)
 
 - Detailing every move of the solution step by step
 - The number of vertexes created along the way
