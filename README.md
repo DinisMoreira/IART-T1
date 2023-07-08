@@ -36,3 +36,6 @@ If the algorithm requires it, choose the maximum depth of the search graph
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/b390aa47-c4f8-4bdc-83b1-a39534f62b5e)
 
 - Detailing every move of the solution step by step
+- The number of vertexes created along the way
+- The number of vertexes analysed
+- The time it took to achieve the solution
