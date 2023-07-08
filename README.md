@@ -23,7 +23,8 @@ sh run.sh
 
 ### Choose what level you want to solve
 
-![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/2a82d535-7df0-4455-9157-b90fd4ed59f7)
+![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/ed6c8286-8609-4971-af2f-2c2551e9a1be)
+
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/e37f46fc-4333-41cf-97e3-77b7142c292f)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/7b2a47f0-748c-4a65-b1d7-437e05ede874)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/47393b1e-ea9a-4167-92cc-3943e223c52c)
