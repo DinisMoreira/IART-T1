@@ -21,7 +21,7 @@ To run, execute the following command from "Unblock Me Ai" directory:
 sh run.sh
 ```
 
-### Choose what level you want to resolve
+### Choose what level you want to solve
 
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/2a82d535-7df0-4455-9157-b90fd4ed59f7)
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/e37f46fc-4333-41cf-97e3-77b7142c292f)
