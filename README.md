@@ -1,6 +1,6 @@
 # IART-T1
 
-## Unblock Me, search algorithm solver
+## Unblock Me, search algorithms
 
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/6cb8b33d-047f-4c51-aa56-5e5790f08962)
 
