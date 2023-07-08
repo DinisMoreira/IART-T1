@@ -29,7 +29,8 @@ sh run.sh
 
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/be03a860-1b61-448d-8c25-4ecca44cc5d4)
 
-### If the algorithm requires it, choose the maximum depth of the search graph
+If the algorithm requires it, choose the maximum depth of the search graph
+
 ### After this you will be presented with the best solution found
 
 ![image](https://github.com/DinisMoreira/IART-T1/assets/28096691/b390aa47-c4f8-4bdc-83b1-a39534f62b5e)
